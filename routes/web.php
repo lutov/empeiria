@@ -28,4 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Assets
+Route::get('migrations/assets/{path}', '\DaveJamesMiller\MigrationsUI\Controllers\AssetController')
+    ->where('path', '.*')
+    ->name('migrations-ui.asset');
+
 require __DIR__.'/auth.php';

@@ -8,6 +8,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/lutov/laravel-routes-html"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lutov/laravel-migrations-ui"
         }
     ],
     "require": {
@@ -16,7 +20,8 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.5",
-        "lutov/laravel-routes-html": "dev-main"
+        "lutov/laravel-routes-html": "dev-main",
+        "davejamesmiller/laravel-migrations-ui": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
