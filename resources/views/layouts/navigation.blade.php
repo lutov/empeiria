@@ -17,8 +17,13 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard.api')" :active="request()->routeIs('dashboard.api')">
+                    <x-nav-link :href="url('/route-list')">
                         {{ __('API') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="url('/migrations')">
+                        {{ __('Migrations') }}
                     </x-nav-link>
                 </div>
             </div>

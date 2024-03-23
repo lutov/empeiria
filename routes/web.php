@@ -28,8 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Assets
-Route::get('migrations/assets/{path}', '\DaveJamesMiller\MigrationsUI\Controllers\AssetController')
+// MigrationsUI Assets
+Route::get('vendor/laravel-migrations-ui/{path}', '\DaveJamesMiller\MigrationsUI\Controllers\AssetController')
     ->where('path', '.*')
     ->name('migrations-ui.asset');
 
