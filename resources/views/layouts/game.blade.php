@@ -10,6 +10,10 @@
         <!-- Fonts -->
 
         <!-- Scripts -->
+        <script src="vendor/jquery/jquery-3.7.1.min.js"></script>
+
+        <script src="vendor/bootstrap/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+        <link href="vendor/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
         @section('sidebar')
