@@ -8,11 +8,13 @@ use App\Helpers\LandscapeHelper;
 use App\Helpers\MapHelper;
 use App\Helpers\PerlinNoiseHelper;
 use App\Helpers\WaterHelper;
+use App\Models\Games\Game;
 use App\Models\Worlds\Biome;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
@@ -96,12 +98,8 @@ class GameController extends Controller
      */
     public function index(Request $request)
     {
-        //Cache::remember('laravel:categories', 30, function() {return 'redis';});
-        //$data = Redis::set('laravel:categories', 'redis');
-        //$data = Redis::get('laravel:categories');
-        //dd($data);
-
-        return view('home', array());
+        $user = Auth::user();
+        return Game::where('user_id', $user->id)->get();
     }
 
     /**

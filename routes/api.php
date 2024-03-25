@@ -5,6 +5,7 @@ use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\FactionController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ItemController;
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::resources(
         array(
+            'games' => GameController::class,
             'worlds' => WorldController::class,
             'factions' => FactionController::class,
             //'squads_types' => SquadTypeController::class,

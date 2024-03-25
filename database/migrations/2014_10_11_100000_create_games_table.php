@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\User;
 use App\Models\Worlds\Picture;
-use App\User;
 use Database\Seeders\GameSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
