@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/game', function () {
+Route::get('/games', function () {
     return view('game.main');
 })->middleware(['auth', 'verified'])->name('game.main');
 
