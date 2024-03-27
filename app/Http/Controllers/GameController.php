@@ -104,6 +104,30 @@ class GameController extends Controller
 
     /**
      * @param Request $request
+     * @return Game
+     */
+    public function store(Request $request)
+    {
+        $user = Auth::user();
+        $game = new Game();
+        $game->user_id = $user->id;
+        $game->name = 'New Game '.date('Y-m-d H:i:s');
+        $game->description = '';
+        $game->save();
+        return $game;
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function show(int $id)
+    {
+        return Game::find($id);
+    }
+
+    /**
+     * @param Request $request
      * @param int $id
      * @return Factory|View
      * @throws Exception

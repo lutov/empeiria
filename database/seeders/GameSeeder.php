@@ -15,10 +15,10 @@ class GameSeeder extends Seeder
     public function run()
     {
         $userId = 1;
-        $world = new Game();
-        $world->user_id = $userId;
-        $world->name = 'New Game '.date('Y-m-d H:i:s');
-        $world->description = '';
-        $world->save();
+        $game = new Game();
+        $game->user_id = $userId;
+        $game->name = 'New Game '.date('Y-m-d H:i:s');
+        $game->description = '';
+        $game->save();
     }
 }

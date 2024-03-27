@@ -1,6 +1,6 @@
 @extends('layouts.game')
 
-@section('title', 'Page Title')
+@section('title', 'Game Start')
 
 @section('sidebar')
     @parent
@@ -34,12 +34,16 @@
             });
         });
         function newGame() {
+            let game = {};
             $.ajax({
                 url: endpoint,
                 type: 'POST',
-                data: {},
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
                 success: function(result) {
-
+                    game = result;
+                    $(location).attr('href', '/games/' + game.id);
                 }
             });
         }
