@@ -2,6 +2,7 @@
 
 namespace App\Models\Games;
 
+use App\Models\Worlds\World;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -18,14 +19,22 @@ class Game extends Model
 {
     protected static string $type = 'game';
     protected $fillable = ['user_id', 'name', 'description', 'picture_id'];
-    protected $visible = ['id', 'name'];
+    protected $with = ['worlds'];
+    protected $visible = ['id', 'name', 'worlds'];
 
     /**
      * @return HasMany
      */
     public function saves()
     {
-        return $this->hasMany('App\Models\Save', 'game_id');
+        return $this->hasMany(Save::class, 'game_id');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function worlds()
+    {
+        return $this->hasMany(World::class, 'game_id');
+    }
 }

@@ -1,7 +1,8 @@
 <?php
 
+use App\Models\Games\Game;
+use App\Models\User;
 use App\Models\Worlds\Picture;
-use App\User;
 use Database\Seeders\WorldSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,6 +20,7 @@ class CreateWorldsTable extends Migration
         Schema::create('worlds', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->unsigned();
+            $table->foreignIdFor(Game::class)->unsigned();
             $table->string('name', 256);
             $table->text('description')->nullable();
             $table->foreignIdFor(Picture::class)->unsigned()->default(1);

@@ -9,14 +9,17 @@
 namespace App\Models\Worlds;
 
 use App\Models\Factions\Faction;
+use App\Models\Games\Game;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * @property int user_id
- * @property string name
- * @property string description
- * @property int picture_id
+ * @property int $user_id
+ * @property int $game_id
+ * @property string $name
+ * @property string $description
+ * @property int $picture_id
  *
  * @method static find(int $id)
  * @method static where(string $string, $id)
@@ -29,11 +32,19 @@ class World extends Model
     protected $visible = ['id', 'name', 'map'];
 
     /**
+     * @return BelongsTo
+     */
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
+
+    /**
      * @return HasOne
      */
     public function map()
     {
-        return $this->hasOne('App\Models\Worlds\Map');
+        return $this->hasOne(Map::class);
     }
 
     /**
