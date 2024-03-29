@@ -22,26 +22,32 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/games', function () {
-        return view('games.games');
-    })->name('games');
-    Route::get('/games/{id}', function (int $id) {
-        $data = array(
-            'id' => $id,
-        );
-        return view('games.game', $data);
-    })->name('game');
+Route::group(array('prefix' => 'games'), function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/', function () {
+            return view('games.games');
+        })->name('games');
+        Route::get('/{id}', function (int $id) {
+            $data = array(
+                'id' => $id,
+            );
+            return view('games.game', $data);
+        })->name('game');
 
-    Route::get('/worlds', function () {
-        return view('worlds.worlds');
-    })->name('worlds');
-    Route::get('/worlds/{id}', function (int $id) {
-        $data = array(
-            'id' => $id,
-        );
-        return view('worlds.world', $data);
-    })->name('world');
+        Route::get('/{id}/worlds', function (int $gameId) {
+            $data = array(
+                'gameId' => $gameId,
+            );
+            return view('games.worlds', $data);
+        })->name('worlds');
+        Route::get('/{id}/worlds/{gameId}', function (int $id, int $gameId) {
+            $data = array(
+                'id' => $id,
+                'gameId' => $gameId,
+            );
+            return view('games.world', $data);
+        })->name('world');
+    });
 });
 
 Route::middleware('auth')->group(function () {

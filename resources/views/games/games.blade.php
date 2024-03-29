@@ -24,14 +24,21 @@
                     if(gamesCount) {
                         let lastGame = games[gamesCount-1];
                         console.log(lastGame);
-                        $('#continueLink').attr('href', '/games/' + lastGame.id);
-                        $('#continueLink').append(lastGame.name);
-
+                        let lastWorlds = lastGame.worlds;
+                        let worldsCount = lastWorlds.length;
+                        if(worldsCount) {
+                            let lastWorld = lastWorlds[worldsCount-1];
+                            $('#continueLink').attr('href', '/games/' + lastGame.id + '/worlds/' + lastWorld.id);
+                            $('#continueLink').append(lastGame.name + ' | ' + lastWorld.name);
+                        } else {
+                            $('#continueLink').attr('href', '/games/' + lastGame.id + '/worlds');
+                            $('#continueLink').append(lastGame.name);
+                        }
                         $(games).each(function (index) {
                             let game = this;
                             $('#gamesList').append(
                                 $('<li>').append(
-                                    $('<a>').attr('href','/games/'+ game.id).append(
+                                    $('<a>').attr('href','/games/'+ game.id + '/worlds').append(
                                         $('<span>').attr('class', 'tab').append(game.name)
                                     )
                                 )
@@ -58,7 +65,7 @@
                 },
                 success: function(result) {
                     game = result;
-                    $(location).attr('href', '/games/' + game.id);
+                    $(location).attr('href', '/games/' + game.id + '/worlds');
                 }
             });
         }
