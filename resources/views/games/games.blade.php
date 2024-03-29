@@ -1,6 +1,6 @@
 @extends('layouts.game')
 
-@section('title', 'Game Start')
+@section('title', 'Games')
 
 @section('sidebar')
     @parent
@@ -20,8 +20,23 @@
                 success: function(result) {
                     games = result;
                     console.log(games);
-                    if(games.length) {
+                    let gamesCount = games.length;
+                    if(gamesCount) {
+                        let lastGame = games[gamesCount-1];
+                        console.log(lastGame);
+                        $('#continueLink').attr('href', '/games/' + lastGame.id);
+                        $('#continueLink').append(lastGame.name);
 
+                        $(games).each(function (index) {
+                            let game = this;
+                            $('#gamesList').append(
+                                $('<li>').append(
+                                    $('<a>').attr('href','/games/'+ game.id).append(
+                                        $('<span>').attr('class', 'tab').append(game.name)
+                                    )
+                                )
+                            );
+                        });
                     } else {
                         $('#continueButton').hide();
                         $('#loadGameButton').hide();
@@ -52,9 +67,12 @@
     <div>
 
         <ul>
-            <li id="continueButton"><a href="#" id="continueLink">Continue</a></li>
+            <li id="continueButton"><a href="#" id="continueLink">Continue </a></li>
             <li id="newGameButton"><a href="#" id="newGameLink">New Game</a></li>
-            <li id="loadGameButton"><a href="#" id="loadGameLink">Load Game</a></li>
+            <li id="loadGameButton">
+                <a href="#" id="loadGameLink">Load Game</a>
+                <ul id="gamesList"></ul>
+            </li>
         </ul>
 
     </div>

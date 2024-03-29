@@ -22,16 +22,27 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/games', function () {
-    return view('game.main');
-})->middleware(['auth', 'verified'])->name('game.main');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/games', function () {
+        return view('games.games');
+    })->name('games');
+    Route::get('/games/{id}', function (int $id) {
+        $data = array(
+            'id' => $id,
+        );
+        return view('games.game', $data);
+    })->name('game');
 
-Route::get('/games/{id}', function (int $id) {
-    $data = array(
-        'id' => $id,
-    );
-    return view('game.play', $data);
-})->middleware(['auth', 'verified'])->name('game.play');
+    Route::get('/worlds', function () {
+        return view('worlds.worlds');
+    })->name('worlds');
+    Route::get('/worlds/{id}', function (int $id) {
+        $data = array(
+            'id' => $id,
+        );
+        return view('worlds.world', $data);
+    })->name('world');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

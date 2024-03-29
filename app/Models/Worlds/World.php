@@ -28,7 +28,7 @@ class World extends Model
 {
     protected static string $type = 'world';
     protected $fillable = ['user_id', 'name', 'description', 'picture_id'];
-    protected $with = ['map'];
+    //protected $with = ['map'];
     protected $visible = ['id', 'name', 'map'];
 
     /**

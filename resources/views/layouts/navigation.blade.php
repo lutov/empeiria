@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('game.main')">
+                    <x-nav-link :href="route('games')">
                         {{ __('Game') }}
                     </x-nav-link>
                 </div>
