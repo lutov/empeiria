@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Helpers\BiomeHelper;
 use App\Helpers\ColorHelper;
@@ -18,10 +18,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
-class GameController extends Controller
+class GameAPIController extends APIController
 {
+
+    /**
+     * HomeController constructor.
+     */
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
     /**
      * @param Request $request
+     * @return Application|Factory|\Illuminate\Contracts\View\View
+     * @throws Exception
      */
     public function demo(Request $request)
     {
@@ -35,18 +46,14 @@ class GameController extends Controller
         */
         //$map = BiomeHelper::generateMap();
         //dd($map);
-        /*
         $map = MapHelper::generate2();
         $map = WaterHelper::addWater($map);
         $map = LandscapeHelper::addHeight($map);
-        */
         //$river = RiverHelper::generate(144, 144);
-        /*
         return view('demo', array(
             'map' => MapHelper::render2D($map),
             //'river' => RiverHelper::render2D($river),
         ));
-        */
         /*
         $x = $y = 4;
         $pixel = 16;
@@ -92,12 +99,57 @@ class GameController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $games = Game::where('user_id', $user->id)->get();
-        $data = array(
-            'user' => $user,
-            'games' => $games,
-        );
-        return view('games.games', $data);
+        return Game::where('user_id', $user->id)->get();
+    }
+
+    /**
+     * @param Request $request
+     * @return Game
+     */
+    public function store(Request $request)
+    {
+        $user = Auth::user();
+        $game = new Game();
+        $game->user_id = $user->id;
+        $game->name = 'New Game '.date('Y-m-d H:i:s');
+        $game->description = '';
+        $game->save();
+        return $game;
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function show(int $id)
+    {
+        return Game::find($id);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return Factory|View
+     * @throws Exception
+     */
+    public function world(Request $request, int $id = 0)
+    {
+
+        //$map = MapHelper::generate();
+
+        $key = 'world_map_' . $id;
+        $seconds = 60 * 60;
+        $map = Cache::remember($key, $seconds, function () {
+            return MapHelper::generate();
+        });
+
+        MapHelper::draw($map, $id);
+
+        echo MapHelper::render($map, $id);
+
+        return view('world', array(
+            'id' => $id,
+        ));
     }
 
     /**
@@ -105,13 +157,71 @@ class GameController extends Controller
      * @param int $id
      * @return Factory|View
      */
-    public function show(Request $request, int $id)
+    public function factions(Request $request, int $id = 0)
     {
-        $game = Game::find($id);
-        $data = array(
+        return view('faction', array(
+            'request' => $request,
             'id' => $id,
-            'game' => $game,
-        );
-        return view('games.game', $data);
+        ));
     }
+
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
+    public function squads(Request $request)
+    {
+        return view('game.squads', array(
+            'request' => $request,
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return Factory|\Illuminate\Contracts\View\View
+     */
+    public function squad(Request $request, int $id)
+    {
+        return view('game.squad', array(
+            'request' => $request,
+            'id' => $id,
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
+    public function characters(Request $request)
+    {
+        return view('game.characters', array(
+            'request' => $request,
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return Factory|View
+     */
+    public function character(Request $request, int $id = 0)
+    {
+        return view('game.character', array(
+            'request' => $request,
+            'id' => $id,
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
+    public function conversations(Request $request)
+    {
+        return view('conversations', array(
+            'request' => $request,
+        ));
+    }
+
 }
