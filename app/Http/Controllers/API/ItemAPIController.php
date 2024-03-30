@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ItemAPIController extends APIController
 {
 
     private $slug = 'items';

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WorldController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,29 +26,11 @@ Route::get('/dashboard', function () {
 
 Route::group(array('prefix' => 'games'), function () {
     Route::middleware(['auth', 'verified'])->group(function () {
-        Route::get('/', function () {
-            return view('games.games');
-        })->name('games');
-        Route::get('/{id}', function (int $id) {
-            $data = array(
-                'id' => $id,
-            );
-            return view('games.game', $data);
-        })->name('game');
+        Route::get('/', array(GameController::class, 'index'))->name('games');
+        Route::get('/{id}', array(GameController::class, 'show'))->name('game');
 
-        Route::get('/{id}/worlds', function (int $gameId) {
-            $data = array(
-                'gameId' => $gameId,
-            );
-            return view('games.worlds', $data);
-        })->name('worlds');
-        Route::get('/{id}/worlds/{gameId}', function (int $id, int $gameId) {
-            $data = array(
-                'id' => $id,
-                'gameId' => $gameId,
-            );
-            return view('games.world', $data);
-        })->name('world');
+        Route::get('/{gameId}/worlds', array(WorldController::class, 'index'))->name('worlds');
+        Route::get('/{gameId}/worlds/{id}', array(WorldController::class, 'show'))->name('world');
     });
 });
 

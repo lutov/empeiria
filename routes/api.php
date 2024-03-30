@@ -1,17 +1,17 @@
 <?php
 
-use App\Http\Controllers\AvatarController;
-use App\Http\Controllers\CharacterController;
-use App\Http\Controllers\ContainerController;
-use App\Http\Controllers\ConversationController;
-use App\Http\Controllers\FactionController;
-use App\Http\Controllers\GameController;
-use App\Http\Controllers\GenderController;
-use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\SquadController;
-use App\Http\Controllers\WorldController;
+use App\Http\Controllers\API\AvatarAPIController;
+use App\Http\Controllers\API\CharacterAPIController;
+use App\Http\Controllers\API\ContainerAPIController;
+use App\Http\Controllers\API\ConversationAPIController;
+use App\Http\Controllers\API\FactionAPIController;
+use App\Http\Controllers\API\GameAPIController;
+use App\Http\Controllers\API\GenderAPIController;
+use App\Http\Controllers\API\InventoryAPIController;
+use App\Http\Controllers\API\ItemAPIController;
+use App\Http\Controllers\API\MessageAPIController;
+use App\Http\Controllers\API\SquadAPIController;
+use App\Http\Controllers\API\WorldAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     })->name('api.user');
 
     Route::group(array('prefix' => 'factions'), function () {
-        Route::controller(FactionController::class)->group(function () {
+        Route::controller(FactionAPIController::class)->group(function () {
             Route::get('/{id}/squads', 'squads')->name('faction.squads');
             Route::post('/{id}/squads/attach', 'attachSquads')->name('faction.attach.squads');
             Route::post('/{id}/squads/detach', 'detachSquads')->name('faction.detach.squads');
@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::group(array('prefix' => 'squads'), function () {
-        Route::controller(SquadController::class)->group(function () {
+        Route::controller(SquadAPIController::class)->group(function () {
             Route::get('/{id}/characters', 'characters')->name('squad.characters');
             Route::post('/{id}/characters/attach', 'attachCharacters')->name('squad.attach.characters');
             Route::post('/{id}/characters/detach', 'detachCharacters')->name('squad.detach.characters');
@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::group(array('prefix' => 'characters'), function () {
-        Route::controller(CharacterController::class)->group(function () {
+        Route::controller(CharacterAPIController::class)->group(function () {
             Route::post('/{id}/move', 'move')->name('move.character');
         });
     });
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::any('avatars/random', 'AvatarController@random')->name('avatar.random');
 
     Route::group(array('prefix' => 'containers'), function () {
-        Route::controller(ContainerController::class)->group(function () {
+        Route::controller(ContainerAPIController::class)->group(function () {
             Route::get('/{id}/items', 'items')->name('container.items');
             Route::post('/{id}/items/attach', 'attachItems')->name('container.attach.items');
             Route::post('/{id}/items/detach', 'detachItems')->name('container.detach.items');
@@ -68,7 +68,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::group(array('prefix' => 'inventories'), function () {
-        Route::controller(InventoryController::class)->group(function () {
+        Route::controller(InventoryAPIController::class)->group(function () {
             Route::get('/{id}/items', 'items')->name('inventory.items');
             Route::post('/{id}/items/attach', 'attachItems')->name('inventory.attach.items');
             Route::post('/{id}/items/detach', 'detachItems')->name('inventory.detach.items');
@@ -78,22 +78,22 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::resources(
         array(
-            'games' => GameController::class,
-            'worlds' => WorldController::class,
-            'factions' => FactionController::class,
+            'games' => GameAPIController::class,
+            'worlds' => WorldAPIController::class,
+            'factions' => FactionAPIController::class,
             //'squads_types' => SquadTypeController::class,
-            'squads' => SquadController::class,
-            'characters' => CharacterController::class,
+            'squads' => SquadAPIController::class,
+            'characters' => CharacterAPIController::class,
 
-            'items' => ItemController::class,
-            'containers' => ContainerController::class,
-            'inventories' => InventoryController::class,
+            'items' => ItemAPIController::class,
+            'containers' => ContainerAPIController::class,
+            'inventories' => InventoryAPIController::class,
 
-            'avatars' => AvatarController::class,
-            'genders' => GenderController::class,
+            'avatars' => AvatarAPIController::class,
+            'genders' => GenderAPIController::class,
 
-            'conversations' => ConversationController::class,
-            'messages' => MessageController::class,
+            'conversations' => ConversationAPIController::class,
+            'messages' => MessageAPIController::class,
         )
     );
 });

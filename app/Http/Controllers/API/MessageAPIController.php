@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\Conversation;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ConversationController extends Controller
+class MessageAPIController extends APIController
 {
 
-    private $slug = 'conversations';
-    private $model = Conversation::class;
+    private $slug = 'messages';
+    private $model = Message::class;
 
     /**
      * HomeController constructor.
@@ -26,20 +26,20 @@ class ConversationController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return Conversation::where('user_id', $user->id)->get();
+        return Message::where('user_id', $user->id)->get();
     }
 
     /**
      * @param  Request  $request
-     * @return Conversation
+     * @return Message
      */
     public function store(Request $request)
     {
-        $conversation = new Conversation();
+        $message = new Message();
         $user = Auth::user();
-        $conversation->user_id = $user->id;
-        $conversation->save();
-        return $conversation;
+        $message->user_id = $user->id;
+        $message->save();
+        return $message;
     }
 
     /**
@@ -48,7 +48,7 @@ class ConversationController extends Controller
      */
     public function show(int $id)
     {
-        return Conversation::find($id);
+        return Message::find($id);
     }
 
     /**
@@ -57,11 +57,11 @@ class ConversationController extends Controller
      */
     public function update(int $id)
     {
-        $conversation = Conversation::find($id);
-        if (isset($conversation->id)) {
+        $message = Message::find($id);
+        if (isset($message->id)) {
             //
         }
-        return $conversation;
+        return $message;
     }
 
     /**
@@ -70,11 +70,11 @@ class ConversationController extends Controller
      */
     public function destroy(int $id)
     {
-        $conversation = Conversation::find($id);
-        if (isset($conversation->id)) {
-            $conversation->delete();
+        $message = Message::find($id);
+        if (isset($message->id)) {
+            $message->delete();
         }
-        return $conversation;
+        return $message;
     }
 
 }

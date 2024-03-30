@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Interfaces\StorageInterface;
 use App\Models\Characters\Inventory;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class InventoryController extends Controller implements StorageInterface
+class InventoryAPIController extends APIController implements StorageInterface
 {
 
     private $slug = 'inventories';

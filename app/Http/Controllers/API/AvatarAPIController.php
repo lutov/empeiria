@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 
 use App\Models\Characters\Avatar;
 use Illuminate\Http\Request;
 
-class AvatarController
+class AvatarAPIController extends APIController
 {
 
     private $slug = 'avatars';

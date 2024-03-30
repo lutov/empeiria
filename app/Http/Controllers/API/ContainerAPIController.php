@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Interfaces\StorageInterface;
 use App\Models\Container;
 use Illuminate\Http\Request;
 
-class ContainerController extends Controller implements StorageInterface
+class ContainerAPIController extends APIController implements StorageInterface
 {
 
     private $slug = 'containers';

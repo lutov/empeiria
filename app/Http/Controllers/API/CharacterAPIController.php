@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Interfaces\MoveInterface;
 use App\Models\Characters\Character;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class CharacterController extends Controller implements MoveInterface
+class CharacterAPIController extends APIController implements MoveInterface
 {
 
     private $slug = 'characters';

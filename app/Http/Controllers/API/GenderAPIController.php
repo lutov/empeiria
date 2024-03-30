@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 
 use App\Models\Characters\Gender;
 
-class GenderController
+class GenderAPIController extends APIController
 {
 
     private $slug = 'genders';

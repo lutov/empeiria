@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Squads\Squad;
 use Illuminate\Http\JsonResponse;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class SquadController extends Controller
+class SquadAPIController extends APIController
 {
 
     private $slug = 'squads';
