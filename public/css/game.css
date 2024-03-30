@@ -1,0 +1,15 @@
+body {
+    background-color: rgba(0, 0, 0, 0);
+    background-position-x: right;
+    background-position-y: 0;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-image: url("/img/mainpage/bg.png");
+    background-size: cover;
+    background-origin: padding-box;
+    background-clip: border-box;
+}
+
+ .logo {
+     max-height: 3em;
+ }

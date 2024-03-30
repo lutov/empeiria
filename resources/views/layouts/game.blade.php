@@ -14,13 +14,18 @@
 
         <script src="/vendor/bootstrap/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
         <link href="/vendor/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/game.css" rel="stylesheet">
     </head>
-    <body>
+    <body class="min-vh-100 pt-5 pb-5">
+        <header class="w-50 text-center m-auto mb-5">
+            <a href="/"><img src="/img/mainpage/logo_en.png" class="logo"></a>
+        </header>
+
         @section('sidebar')
 
         @show
 
-        <div class="container">
+        <div class="container bg-white p-5 rounded">
             @yield('content')
         </div>
     </body>
