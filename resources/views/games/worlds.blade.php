@@ -55,7 +55,7 @@
                 newGame();
             });
         });
-        function newGame() {
+        function newWorld() {
             let game = {};
             $.ajax({
                 url: endpoint,
@@ -69,35 +69,46 @@
                 }
             });
         }
+        function getRandomName() {
+            $.ajax({
+                url: '/api/names/random',
+                type: 'GET',
+                data: {
+                    types: ['world']
+                },
+                success: function (result) {
+                    $('#newWorldName').val(result);
+                }
+            });
+        }
     </script>
 
     <div>
 
         <div class="card-deck">
+            @foreach($worlds as $world)
             <div class="card">
-                <img class="card-img-top" src="/img/worlds/+world.id+.jpg'" alt="Card image cap">
+                <img class="card-img-top" src="/img/worlds/{{ $world->id }}.jpg'" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">world.id. world.name World</h5>
+                    <h5 class="card-title">{{ $world->id }}. {{ $world->name }} World</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                         content.</p>
                     <div class="btn-group btn-group-sm" role="group" aria-label="World Actions">
                         <button type="button" class="btn btn-secondary" onclick="$emit('update-world', world)">Edit
                         </button>
-                        <a class="btn btn-primary" href="/worlds/+world.id">Play</a>
+                        <a class="btn btn-primary" href="/worlds/{{ $world->id }}">Play</a>
                         <button type="button" class="btn btn-danger" onclick="$emit('destroy-world', world)">Delete
                         </button>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
 
-        <div class="mt-2">
-            <label for="new_world_name">Create new World</label>
-            <form action="/worlds" class="form-inline" method="POST">
-                <input class="form-control form-control-sm mr-2" id="new_world_name" placeholder="New world's name"
-                       v-model="new_world.name">
-                <button class="btn btn-sm btn-success" v-on:click.prevent="storeWorld()">Create</button>
-            </form>
+        <div class="input-group">
+            <input type="text" class="form-control"  id="newWorldName" placeholder="New world's name" aria-label="New world's name" autocomplete="off">
+            <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
+            <button class="btn btn-outline-secondary" type="button">Create</button>
         </div>
 
     </div>

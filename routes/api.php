@@ -10,6 +10,7 @@ use App\Http\Controllers\API\GenderAPIController;
 use App\Http\Controllers\API\InventoryAPIController;
 use App\Http\Controllers\API\ItemAPIController;
 use App\Http\Controllers\API\MessageAPIController;
+use App\Http\Controllers\API\NameAPIController;
 use App\Http\Controllers\API\SquadAPIController;
 use App\Http\Controllers\API\WorldAPIController;
 use Illuminate\Http\Request;
@@ -58,6 +59,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::any('avatars/random', 'AvatarController@random')->name('avatar.random');
+
+    Route::get('names/random', array(NameAPIController::class, 'random'))->name('name.random');
 
     Route::group(array('prefix' => 'containers'), function () {
         Route::controller(ContainerAPIController::class)->group(function () {
