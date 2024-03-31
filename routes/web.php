@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorldController;
@@ -23,6 +25,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/demo',  array(DemoController::class, 'index'))->middleware(['auth', 'verified'])->name('demo');
 
 Route::group(array('prefix' => 'games'), function () {
     Route::middleware(['auth', 'verified'])->group(function () {
