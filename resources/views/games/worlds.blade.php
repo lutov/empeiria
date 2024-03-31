@@ -87,7 +87,7 @@
 
         <div class="card-deck">
             @foreach($worlds as $world)
-            <div class="card">
+            <div class="card mb-3">
                 <img class="card-img-top" src="/img/worlds/{{ $world->id }}.jpg'" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{ $world->id }}. {{ $world->name }} World</h5>

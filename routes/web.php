@@ -31,6 +31,9 @@ Route::group(array('prefix' => 'games'), function () {
 
         Route::get('/{gameId}/worlds', array(WorldController::class, 'index'))->name('worlds');
         Route::get('/{gameId}/worlds/{id}', array(WorldController::class, 'show'))->name('world');
+
+        Route::get('/{gameId}/worlds/{worldId}/characters', array(CharacterController::class, 'index'))->name('characters');
+        Route::get('/{gameId}/worlds/{worldId}/characters/{id}', array(CharacterController::class, 'show'))->name('character');
     });
 });
 
