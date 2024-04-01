@@ -9,6 +9,7 @@ use App\Http\Controllers\API\GameAPIController;
 use App\Http\Controllers\API\GenderAPIController;
 use App\Http\Controllers\API\InventoryAPIController;
 use App\Http\Controllers\API\ItemAPIController;
+use App\Http\Controllers\API\MapAPIController;
 use App\Http\Controllers\API\MessageAPIController;
 use App\Http\Controllers\API\NameAPIController;
 use App\Http\Controllers\API\SquadAPIController;
@@ -31,6 +32,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     })->name('api.user');
+
+    Route::post('/maps/preview', array(MapAPIController::class, 'preview'))->name('map.preview');
 
     Route::group(array('prefix' => 'factions'), function () {
         Route::controller(FactionAPIController::class)->group(function () {

@@ -77,7 +77,28 @@
                     types: ['world']
                 },
                 success: function (result) {
-                    $('#newWorldName').val(result);
+                    $('#name').val(result);
+                    $('#seed').val(result);
+                    $('#octaves').val(6);
+                }
+            });
+        }
+        function getMap() {
+            let name = $('#name').val();
+            let seed = $('#seed').val();
+            let octaves = $('#octaves').val();
+            $.ajax({
+                url: '/api/maps/preview',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    name: name,
+                    seed: seed,
+                    octaves: octaves
+                },
+                success: function (result) {
+                    let preview = 'data:image/png;base64,' + result;
+                    $('#preview').attr('src', preview);
                 }
             });
         }
@@ -105,10 +126,28 @@
             @endforeach
         </div>
 
-        <div class="input-group">
-            <input type="text" class="form-control"  id="newWorldName" placeholder="New world's name" aria-label="New world's name" autocomplete="off">
-            <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
-            <button class="btn btn-outline-secondary" type="button">Create</button>
+        <div id="">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control"  id="name" placeholder="New world's name" aria-label="New world's name" autocomplete="off">
+                <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
+                <button class="btn btn-outline-secondary" type="button" onclick="getMap()">Preview</button>
+                <button class="btn btn-outline-secondary" type="button">Create</button>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input type="text" id="seed" class="form-control" placeholder="Seed" aria-label="Seed">
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="text" id="octaves" class="form-control" placeholder="Octaves" aria-label="Octaves" value="">
+                </div>
+            </div>
+
+            <div class="text-center">
+                <img id="preview" src="" alt="">
+            </div>
         </div>
 
     </div>
