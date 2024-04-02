@@ -71,24 +71,19 @@
 
     <div>
 
-        <div class="card-deck">
-            @foreach($worlds as $world)
-            <div class="card mb-3">
-                <img class="card-img-top" src="/img/worlds/{{ $world->id }}/map.png" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $world->id }}. {{ $world->name }} World</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                        content.</p>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="World Actions">
-                        <button type="button" class="btn btn-secondary" onclick="$emit('update-world', world)">Edit
-                        </button>
-                        <a class="btn btn-primary" href="/worlds/{{ $world->id }}">Play</a>
-                        <button type="button" class="btn btn-danger" onclick="$emit('destroy-world', world)">Delete
-                        </button>
+        <div class="row row-cols-1 row-cols-md-3 g-3 mb-5">
+        @foreach($worlds as $world)
+            <div class="col">
+                <div class="card">
+                    <img src="/img/worlds/{{ $world->id }}/map.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $world->name }}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Play</a>
                     </div>
                 </div>
             </div>
-            @endforeach
+        @endforeach
         </div>
 
         <div id="">
