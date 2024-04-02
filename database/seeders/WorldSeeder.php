@@ -24,7 +24,8 @@ class WorldSeeder extends Seeder
         $world->game_id = 1;
         $world->name = Name::random(['world' => 1]);
         $world->description = '';
-        $world->picture_id = Picture::random()->id;
+        $world->seed = 'seed';
+        $world->octaves = 6;
         $world->save();
     }
 }

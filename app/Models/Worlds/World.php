@@ -15,11 +15,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
+ * @property int $id
  * @property int $user_id
  * @property int $game_id
  * @property string $name
  * @property string $description
- * @property int $picture_id
+ * @property string $seed
+ * @property int $octaves
  *
  * @method static find(int $id)
  * @method static where(string $string, $id)

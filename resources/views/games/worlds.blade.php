@@ -12,63 +12,8 @@
     <script>
         const endpoint = '/api/games';
         $(function() {
-            let games = [];
-            $.ajax({
-                url: endpoint,
-                type: 'GET',
-                data: {},
-                success: function(result) {
-                    games = result;
-                    console.log(games);
-                    let gamesCount = games.length;
-                    if(gamesCount) {
-                        let lastGame = games[gamesCount-1];
-                        console.log(lastGame);
-                        let lastWorlds = lastGame.worlds;
-                        let worldsCount = lastWorlds.length;
-                        if(worldsCount) {
-                            let lastWorld = lastWorlds[worldsCount-1];
-                            $('#continueLink').attr('href', '/games/' + lastGame.id + '/worlds/' + lastWorld.id);
-                            $('#continueLink').append(lastGame.name + ' | ' + lastWorld.name);
-                        } else {
-                            $('#continueLink').attr('href', '/games/' + lastGame.id + '/worlds');
-                            $('#continueLink').append(lastGame.name);
-                        }
-                        $(games).each(function (index) {
-                            let game = this;
-                            $('#gamesList').append(
-                                $('<li>').append(
-                                    $('<a>').attr('href','/games/'+ game.id + '/worlds').append(
-                                        $('<span>').attr('class', 'tab').append(game.name)
-                                    )
-                                )
-                            );
-                        });
-                    } else {
-                        $('#continueButton').hide();
-                        $('#loadGameButton').hide();
-                    }
-                }
-            });
-            $('#newGameLink').click(function(event) {
-                event.preventDefault();
-                newGame();
-            });
+            //
         });
-        function newWorld() {
-            let game = {};
-            $.ajax({
-                url: endpoint,
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(result) {
-                    game = result;
-                    $(location).attr('href', '/games/' + game.id + '/worlds');
-                }
-            });
-        }
         function getRandomName() {
             $.ajax({
                 url: '/api/names/random',
@@ -102,6 +47,26 @@
                 }
             });
         }
+        function createWorld() {
+            let name = $('#name').val();
+            let seed = $('#seed').val();
+            let octaves = $('#octaves').val();
+            $.ajax({
+                url: '/api/worlds',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    gameId: {{ $gameId }},
+                    name: name,
+                    seed: seed,
+                    octaves: octaves
+                },
+                success: function(result) {
+                    game = result;
+                    $(location).attr('href', '/games/' + game.id + '/worlds');
+                }
+            });
+        }
     </script>
 
     <div>
@@ -109,7 +74,7 @@
         <div class="card-deck">
             @foreach($worlds as $world)
             <div class="card mb-3">
-                <img class="card-img-top" src="/img/worlds/{{ $world->id }}.jpg'" alt="Card image cap">
+                <img class="card-img-top" src="/img/worlds/{{ $world->id }}/map.png" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{ $world->id }}. {{ $world->name }} World</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
@@ -128,10 +93,10 @@
 
         <div id="">
             <div class="input-group mb-3">
-                <input type="text" class="form-control"  id="name" placeholder="New world's name" aria-label="New world's name" autocomplete="off">
+                <input type="text" class="form-control"  id="name" placeholder="Name" aria-label="Name" autocomplete="off">
                 <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
                 <button class="btn btn-outline-secondary" type="button" onclick="getMap()">Preview</button>
-                <button class="btn btn-outline-secondary" type="button">Create</button>
+                <button class="btn btn-outline-secondary" type="button" onclick="createWorld()">Create</button>
             </div>
 
             <div class="row">
@@ -141,7 +106,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <input type="text" id="octaves" class="form-control" placeholder="Octaves" aria-label="Octaves" value="">
+                    <input type="text" id="octaves" class="form-control" placeholder="Octaves" aria-label="Octaves">
                 </div>
             </div>
 

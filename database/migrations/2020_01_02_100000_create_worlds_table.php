@@ -23,7 +23,8 @@ class CreateWorldsTable extends Migration
             $table->foreignIdFor(Game::class)->unsigned();
             $table->string('name', 256);
             $table->text('description')->nullable();
-            $table->foreignIdFor(Picture::class)->unsigned()->default(1);
+            $table->string('seed', 256);
+            $table->smallInteger('octaves')->unsigned();
             $table->timestamps();
         });
         $seeder = new WorldSeeder();
