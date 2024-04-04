@@ -23,13 +23,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property int $user_id
+ * @property int $world_id
  * @property string $name
  * @property string $nickname
  * @property string $last_name
  * @property string $age
  * @property string $bio
- * @property int $gender_id
- * @property Gender $gender
+ * @property string $sex
  * @property int $avatar_id
  * @property Avatar $avatar
  * @property int $faction_id
@@ -49,10 +49,10 @@ class Character extends Model
     use SoftDeletes;
 
     protected $with = [
-        'gender',
-        'avatar',
-        'qualities',
-        'inventory',
+        //'gender',
+        //'avatar',
+        //'qualities',
+        //'inventory',
         //'position',
     ];
     protected $visible = [
@@ -60,7 +60,7 @@ class Character extends Model
         'name',
         'nickname',
         'last_name',
-        'gender',
+        'sex',
         'age',
         'bio',
         'qualities',

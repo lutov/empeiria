@@ -24,24 +24,22 @@ class DemoCharacterSeeder extends Seeder
     public function run()
     {
         $userId = 1;
+        $sex = 'female';
         $character = new Character();
-        $gender = Gender::random();
-        $faction = Faction::find(1);
-        $squad = Squad::find(1);
-        $qualities = Quality::all();
+        //$faction = Faction::find(1);
+        //$squad = Squad::find(1);
+        //$qualities = Quality::all();
         $character->user_id = $userId;
-        $character->name = Name::random(['first_name' => 1, $gender->slug => 1]);
-        $character->nickname = Name::random(['nickname' => 1, $gender->slug => 1]);
-        $character->last_name = Name::random(['last_name' => 1, $gender->slug => 1]);
+        $character->world_id = $userId;
+        $character->name = Name::random(['first_name' => 1, $sex => 1]);
+        $character->nickname = Name::random(['nickname' => 1, $sex => 1]);
+        $character->last_name = Name::random(['last_name' => 1, $sex => 1]);
         $character->age = rand(18, 100);
         $character->bio = '';
-        $character->gender_id = $gender->id;
-        $character->avatar_id = Avatar::random($gender)->id;
-        $character->faction_id = $faction->id;
-        $character->faction_order = 1;
-        $character->squad_id = $squad->id;
-        $character->squad_order = 1;
+        $character->sex = $sex;
+        $character->avatar_id = 1;
         $character->save();
+        /*
         $characterQualities = array(
             'character_id' => $character->id,
         );
@@ -56,5 +54,6 @@ class DemoCharacterSeeder extends Seeder
         foreach ($items as $key => $item) {
             $inventory->items()->attach($item->id, ['quantity' => 1, 'sort' => $key + 1]);
         }
+        */
     }
 }
