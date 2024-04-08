@@ -11,7 +11,8 @@
 @section('content')
     <script>
         $(function() {
-            //
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
         });
         // TODO refactor
         function getRandomName() {
@@ -85,6 +86,21 @@
                     <div>
                         <label for="customRange2" class="form-label">Age: <span id="displayAge">25</span></label>
                         <input type="range" class="form-range" min="25" max="50" step="5" id="customRange2" onchange="setAge($(this).val())">
+                    </div>
+
+                    <div>
+
+                        Available points: 10
+
+                        @foreach($qualities as $quality)
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-75" id="basic-addon1" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{ $quality['description'] }}">{{ $quality['name'] }} </span>
+                            <button class="btn btn-danger" type="button" id="button-addon1">&minus;</button>
+                            <input type="text" class="form-control input-number" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ $quality['value'] }}">
+                            <button class="btn btn-success" type="button" id="button-addon1">&plus;</button>
+                        </div>
+                        @endforeach
+
                     </div>
 
                 </div>
