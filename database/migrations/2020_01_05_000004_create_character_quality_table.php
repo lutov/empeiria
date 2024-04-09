@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCharacterQualitiesTable extends Migration
+class CreateCharacterQualityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +15,11 @@ class CreateCharacterQualitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('character_qualities', function (Blueprint $table) {
+        Schema::create('character_quality', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Character::class)->unsigned();
-            $qualities = Quality::all();
-            foreach ($qualities as $quality) {
-                $table->smallInteger($quality->slug)->unsigned()->default(1);
-            }
+            $table->foreignIdFor(Quality::class)->unsigned();
+            $table->smallInteger('value')->unsigned()->default(1);
         });
     }
 

@@ -9,6 +9,7 @@
 namespace App\Models\Characters;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Quality
@@ -28,6 +29,16 @@ class Quality extends Model
         'id',
         'name',
         'slug',
-        'description'
+        'description',
+        'alt_description',
+        'default_value'
     );
+
+    /**
+     * @return BelongsToMany
+     */
+    public function characters()
+    {
+        return $this->belongsToMany(Character::class, 'character_quality');
+    }
 }

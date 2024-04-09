@@ -12,6 +12,7 @@ use App\Models\Factions\Faction;
 use App\Models\Squads\Squad;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -51,7 +52,7 @@ class Character extends Model
     protected $with = [
         //'gender',
         //'avatar',
-        //'qualities',
+        'qualities',
         //'inventory',
         //'position',
     ];
@@ -136,11 +137,11 @@ class Character extends Model
     }
 
     /**
-     * @return HasOne
+     * @return BelongsToMany
      */
     public function qualities()
     {
-        return $this->hasOne('App\Models\Characters\Qualities');
+        return $this->belongsToMany(Quality::class, 'character_quality')->withPivot('value');
     }
 
     /**
