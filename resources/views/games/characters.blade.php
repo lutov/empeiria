@@ -10,6 +10,40 @@
 
 @section('content')
     <script>
+        let maxQualityPoints = 40;
+        let availableQualityPoints = 10;
+        let minPointsPerQuality = 3;
+        let maxPointsPerQuality = 20;
+        function updateQualityPoints(operation, quality)
+        {
+            let availableQualityPointsField = $('#availableQualityPoints');
+            let qualityPointsField = $('#'+quality);
+            let qualityPoints = Number(qualityPointsField.val());
+            let updatedQualityPoints = qualityPoints;
+            if('+' === operation) {
+                if(0 < availableQualityPoints) {
+                    updatedQualityPoints = qualityPoints + 1;
+                    if(updatedQualityPoints <= maxPointsPerQuality) {
+                        qualityPointsField.val(updatedQualityPoints);
+                        availableQualityPoints -= 1;
+                    } else {
+                        alert('Quality value can not be higher than ' + maxPointsPerQuality + ' points');
+                    }
+                } else {
+                    alert('No Quality points available');
+                }
+            } else {
+                updatedQualityPoints = qualityPoints - 1;
+                if(updatedQualityPoints >= minPointsPerQuality) {
+                    qualityPointsField.val(updatedQualityPoints);
+                    availableQualityPoints += 1;
+                } else {
+                    alert('Quality value can not be lower than ' + minPointsPerQuality + ' points');
+                }
+            }
+            availableQualityPointsField.val(availableQualityPoints);
+        }
+
         $(function() {
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
@@ -83,21 +117,34 @@
                         <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
                     </div>
 
-                    <div>
+                    <div class="mb-3">
                         <label for="customRange2" class="form-label">Age: <span id="displayAge">25</span></label>
                         <input type="range" class="form-range" min="25" max="50" step="5" id="customRange2" onchange="setAge($(this).val())">
                     </div>
 
                     <div>
 
-                        Available points: 10
-
-                        @foreach($qualities as $quality)
                         <div class="input-group mb-3">
-                            <span class="input-group-text w-75" id="basic-addon1" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{ $quality->description }}">{{ $quality->name }} </span>
-                            <button class="btn btn-danger" type="button" id="button-addon1">&minus;</button>
-                            <input type="text" class="form-control input-number" name="{{ $quality->slug }}" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{ $quality->default_value }}">
-                            <button class="btn btn-success" type="button" id="button-addon1">&plus;</button>
+                            <span class="input-group-text border border-success text-success w-75" id="basic-addon1">Available Quality points</span>
+                            <input class="form-control border border-success" id="availableQualityPoints" type="text"
+                                   placeholder="" value="10" autocomplete="off" readonly>
+                        </div>
+
+                        @foreach($qualities as $key => $quality)
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-75" id="basic-addon{{ $key }}" data-bs-toggle="tooltip"
+                                  data-bs-placement="left"
+                                  data-bs-title="{{ $quality->description }}">{{ $quality->name }}</span>
+                            <button class="btn btn-danger" type="button" id="button-addon{{ $key }}"
+                                    onclick="updateQualityPoints('-', '{{ $quality->slug }}')">&minus;
+                            </button>
+                            <input type="text" class="form-control input-number" id="{{ $quality->slug }}"
+                                   name="{{ $quality->slug }}" placeholder="{{ $quality->name }}"
+                                   aria-label="{{ $quality->name }}" aria-describedby="basic-addon{{ $key }}"
+                                   value="{{ $quality->default_value }}" autocomplete="off">
+                            <button class="btn btn-success" type="button" id="button-addon{{ $key }}"
+                                    onclick="updateQualityPoints('+', '{{ $quality->slug }}')">&plus;
+                            </button>
                         </div>
                         @endforeach
 
