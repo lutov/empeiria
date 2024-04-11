@@ -14,6 +14,9 @@
 
         <script src="/vendor/bootstrap/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
         <link href="/vendor/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <script src="/vendor/chart-js/chart.umd.min.js"></script>
+
         <link href="/css/game.css" rel="stylesheet">
     </head>
     <body class="min-vh-100 pt-5 pb-5">

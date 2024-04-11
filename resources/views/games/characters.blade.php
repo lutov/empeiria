@@ -10,11 +10,53 @@
 
 @section('content')
     <script>
+        $(function() {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+            let qualitiesChartData = {
+                labels: ['{!! implode("', '", $qualities->pluck('name')->toArray()) !!}'],
+                datasets: [{
+                    label: 'Character Qualities',
+                    data: [{!! implode(", ", $qualities->pluck('default_value')->toArray()) !!}],
+                    fill: true,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    pointBackgroundColor: 'rgb(255, 99, 132)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(255, 99, 132)'
+                }]
+            };
+            let qualitiesChartConfig = {
+                type: 'radar',
+                data: qualitiesChartData,
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 2
+                        }
+                    },
+                    scales: {
+                        r: {
+                            startAngle: 0,
+                            ticks: {
+                               count: 5
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 20
+                        }
+                    }
+                },
+            };
+            new Chart($('#qualitiesChart'), qualitiesChartConfig);
+        });
+
         let maxQualityPoints = 40;
         let availableQualityPoints = 10;
         let minPointsPerQuality = 3;
         let maxPointsPerQuality = 20;
-        function updateQualityPoints(operation, quality)
+        function updateQualityPoints(operation, quality, index)
         {
             let availableQualityPointsField = $('#availableQualityPoints');
             let qualityPointsField = $('#'+quality);
@@ -42,12 +84,13 @@
                 }
             }
             availableQualityPointsField.val(availableQualityPoints);
+            let qualitiesChart = Chart.getChart($('#qualitiesChart'));
+            if(qualitiesChart) {
+                qualitiesChart.data.datasets[0].data[index] = updatedQualityPoints;
+                qualitiesChart.update();
+            }
         }
 
-        $(function() {
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-        });
         // TODO refactor
         function getRandomName() {
             $.ajax({
@@ -136,17 +179,21 @@
                                   data-bs-placement="left"
                                   data-bs-title="{{ $quality->description }}">{{ $quality->name }}</span>
                             <button class="btn btn-danger" type="button" id="button-addon{{ $key }}"
-                                    onclick="updateQualityPoints('-', '{{ $quality->slug }}')">&minus;
+                                    onclick="updateQualityPoints('-', '{{ $quality->slug }}', {{ $key }})">&minus;
                             </button>
                             <input type="text" class="form-control input-number" id="{{ $quality->slug }}"
                                    name="{{ $quality->slug }}" placeholder="{{ $quality->name }}"
                                    aria-label="{{ $quality->name }}" aria-describedby="basic-addon{{ $key }}"
                                    value="{{ $quality->default_value }}" autocomplete="off">
                             <button class="btn btn-success" type="button" id="button-addon{{ $key }}"
-                                    onclick="updateQualityPoints('+', '{{ $quality->slug }}')">&plus;
+                                    onclick="updateQualityPoints('+', '{{ $quality->slug }}', {{ $key }})">&plus;
                             </button>
                         </div>
                         @endforeach
+
+                        <div>
+                            <canvas id="qualitiesChart"></canvas>
+                        </div>
 
                     </div>
 
