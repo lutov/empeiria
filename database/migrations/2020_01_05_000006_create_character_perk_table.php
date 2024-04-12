@@ -1,12 +1,12 @@
 <?php
 
 use App\Models\Characters\Character;
-use App\Models\Characters\Quality;
+use App\Models\Characters\Perk;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCharacterQualityTable extends Migration
+class CreateCharacterPerkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +15,10 @@ class CreateCharacterQualityTable extends Migration
      */
     public function up()
     {
-        Schema::create('character_quality', function (Blueprint $table) {
+        Schema::create('character_perk', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Character::class)->unsigned();
-            $table->foreignIdFor(Quality::class)->unsigned();
-            $table->smallInteger('value')->unsigned()->default(1);
+            $table->foreignIdFor(Perk::class)->unsigned();
         });
     }
 
@@ -30,6 +29,6 @@ class CreateCharacterQualityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('character_quality');
+        Schema::dropIfExists('character_perk');
     }
 }

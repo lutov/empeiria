@@ -145,6 +145,14 @@ class Character extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function perks()
+    {
+        return $this->belongsToMany(Perk::class, 'character_perk');
+    }
+
+    /**
      * @return HasMany
      */
     public function conditions()
