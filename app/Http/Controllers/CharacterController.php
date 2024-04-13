@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Characters\Character;
+use App\Models\Characters\Perk;
 use App\Models\Characters\Quality;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -20,11 +21,13 @@ class CharacterController extends Controller
     {
         $characters = Character::where('world_id', $worldId)->get();
         $qualities = Quality::all();
+        $perks = Perk::all();
         $data = array(
             'gameId' => $gameId,
             'worldId' => $worldId,
             'characters' => $characters,
             'qualities' => $qualities,
+            'perks' => $perks,
         );
         return view('games.characters', $data);
     }

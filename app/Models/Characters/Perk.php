@@ -23,7 +23,8 @@ class Perk extends Model
         'id',
         'name',
         'slug',
-        'description'
+        'description',
+        'icon'
     );
     protected $fillable = array(
         'id',
@@ -31,6 +32,7 @@ class Perk extends Model
         'slug',
         'description',
         'alt_description',
+        'icon',
     );
 
     /**

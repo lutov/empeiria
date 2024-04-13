@@ -128,18 +128,24 @@
         {
             $('#displayAge').html(age);
         }
+        function togglePerk(perkSlug)
+        {
+            let perkCard = $('#' + perkSlug + '-perk-card');
+            perkCard.removeClass('border-success');
+            perkCard.addClass('text-bg-success');
+        }
     </script>
 
     <style>
-        .tmp {position: relative; clear: both;}
-            .tmp img {width: 5em !important; height: 5em !important;}
+        .tmp {}
+            .tmp img {width: 3em !important; height: 3em !important;}
     </style>
 
     <div>
 
         <div id="newCharacterComponent">
 
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col">
 
                     <div class="mb-3">
@@ -165,38 +171,6 @@
                         <input type="range" class="form-range" min="25" max="50" step="5" id="customRange2" onchange="setAge($(this).val())">
                     </div>
 
-                    <div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text border border-success text-success w-75" id="basic-addon1">Available Quality points</span>
-                            <input class="form-control border border-success" id="availableQualityPoints" type="text"
-                                   placeholder="" value="10" autocomplete="off" readonly>
-                        </div>
-
-                        @foreach($qualities as $key => $quality)
-                        <div class="input-group mb-3">
-                            <span class="input-group-text w-75" id="basic-addon{{ $key }}" data-bs-toggle="tooltip"
-                                  data-bs-placement="left"
-                                  data-bs-title="{{ $quality->description }}">{{ $quality->name }}</span>
-                            <button class="btn btn-danger" type="button" id="button-addon{{ $key }}"
-                                    onclick="updateQualityPoints('-', '{{ $quality->slug }}', {{ $key }})">&minus;
-                            </button>
-                            <input type="text" class="form-control input-number" id="{{ $quality->slug }}"
-                                   name="{{ $quality->slug }}" placeholder="{{ $quality->name }}"
-                                   aria-label="{{ $quality->name }}" aria-describedby="basic-addon{{ $key }}"
-                                   value="{{ $quality->default_value }}" autocomplete="off">
-                            <button class="btn btn-success" type="button" id="button-addon{{ $key }}"
-                                    onclick="updateQualityPoints('+', '{{ $quality->slug }}', {{ $key }})">&plus;
-                            </button>
-                        </div>
-                        @endforeach
-
-                        <div>
-                            <canvas id="qualitiesChart"></canvas>
-                        </div>
-
-                    </div>
-
                 </div>
                 <div class="col">
 
@@ -207,7 +181,7 @@
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div-->
 
-                        <div class="carousel-inner">
+                        <div class="carousel-inner rounded">
                             <div class="carousel-item active">
                                 <img src="/img/characters/avatars/newmale/01.png" class="d-block w-100" alt="...">
                             </div>
@@ -231,15 +205,80 @@
                         </button>
 
                         <div class="carousel-indicators tmp">
-                            <img src="/img/characters/avatars/newmale/01.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
-                            <img src="/img/characters/avatars/newmale/02.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
-                            <img src="/img/characters/avatars/newmale/03.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3">
-                            <img src="/img/characters/avatars/newmale/04.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4">
+                            <img src="/img/characters/avatars/newmale/01.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="rounded-circle border border-2 border-white active" aria-current="true" aria-label="Slide 1">
+                            <img src="/img/characters/avatars/newmale/02.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="rounded-circle border border-2 border-white" aria-label="Slide 2">
+                            <img src="/img/characters/avatars/newmale/03.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="rounded-circle border border-2 border-white" aria-label="Slide 3">
+                            <img src="/img/characters/avatars/newmale/04.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" class="rounded-circle border border-2 border-white" aria-label="Slide 4">
                         </div>
 
                     </div>
 
                 </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text border border-success text-success w-75" id="basic-addon1">Available Quality points</span>
+                        <input class="form-control border border-success" id="availableQualityPoints" type="text"
+                               placeholder="" value="10" autocomplete="off" readonly>
+                    </div>
+
+                    @foreach($qualities as $key => $quality)
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-75" id="basic-addon{{ $key }}" data-bs-toggle="tooltip"
+                                  data-bs-placement="left"
+                                  data-bs-title="{{ $quality->description }}">{{ $quality->name }}</span>
+                            <button class="btn btn-danger" type="button" id="button-addon{{ $key }}"
+                                    onclick="updateQualityPoints('-', '{{ $quality->slug }}', {{ $key }})">&minus;
+                            </button>
+                            <input type="text" class="form-control input-number" id="{{ $quality->slug }}"
+                                   name="{{ $quality->slug }}" placeholder="{{ $quality->name }}"
+                                   aria-label="{{ $quality->name }}" aria-describedby="basic-addon{{ $key }}"
+                                   value="{{ $quality->default_value }}" autocomplete="off">
+                            <button class="btn btn-success" type="button" id="button-addon{{ $key }}"
+                                    onclick="updateQualityPoints('+', '{{ $quality->slug }}', {{ $key }})">&plus;
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="col">
+                    <div class="mb-3">
+                        <canvas id="qualitiesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                                <span class="input-group-text border border-success text-success w-75" id="basic-addon1">
+                                    Available Perks
+                                </span>
+                        <input class="form-control border border-success" id="availablePerks" type="text"
+                               placeholder="" value="3" autocomplete="off" readonly>
+                    </div>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+            <div class="row">
+                @foreach($perks as $perk)
+                    <div class="col-sm-3 mb-3">
+                        <div id="{{ $perk->slug }}-perk-card" class="card h-100 border-success"
+                             onclick="togglePerk('{{ $perk->slug }}')">
+                            <div class="card-header">
+                                {{ $perk->name }}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-title">{!! $perk->icon !!}</p>
+                                <p class="card-text fw-light fs-6">{{ $perk->description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
 
         </div>

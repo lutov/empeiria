@@ -20,6 +20,7 @@ class CreateCharactersPerksTable extends Migration
             $table->string('slug', 256)->nullable();
             $table->text('description')->nullable();
             $table->text('alt_description')->nullable();
+            $table->text('icon')->nullable();
         });
         $seeder = new CharactersPerksSeeder();
         $seeder->run();
