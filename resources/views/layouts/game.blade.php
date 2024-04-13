@@ -8,6 +8,7 @@
         <title>@yield('title')</title>
 
         <!-- Fonts -->
+        <link href="/vendor/bootstrap/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
 
         <!-- Scripts -->
         <script src="/vendor/jquery/jquery-3.7.1.min.js"></script>
