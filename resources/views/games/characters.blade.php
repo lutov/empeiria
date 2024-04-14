@@ -128,17 +128,38 @@
         {
             $('#displayAge').html(age);
         }
+
+        let availablePerks = 3;
+        let perks = {
+        @foreach($perks as $perk)
+        '{{ $perk->slug }}': false,
+        @endforeach
+        };
         function togglePerk(perkSlug)
         {
             let perkCard = $('#' + perkSlug + '-perk-card');
-            perkCard.removeClass('border-success');
-            perkCard.addClass('text-bg-success');
+            if((0 < availablePerks) && (false === perks[perkSlug])) {
+                perks[perkSlug] = true;
+                availablePerks -= 1;
+                perkCard.removeClass('border-success');
+                perkCard.addClass('text-bg-success');
+            } else if(true === perks[perkSlug]) {
+                perks[perkSlug] = false;
+                availablePerks += 1;
+                perkCard.removeClass('text-bg-success');
+                perkCard.addClass('border-success');
+            }
+            $('#availablePerks').val(availablePerks);
         }
     </script>
 
     <style>
         .tmp {}
             .tmp img {width: 3em !important; height: 3em !important;}
+
+        .perk-card {
+            cursor: pointer;
+        }
     </style>
 
     <div>
@@ -267,7 +288,7 @@
             <div class="row">
                 @foreach($perks as $perk)
                     <div class="col-sm-3 mb-3">
-                        <div id="{{ $perk->slug }}-perk-card" class="card h-100 border-success"
+                        <div id="{{ $perk->slug }}-perk-card" class="card h-100 perk-card border-success"
                              onclick="togglePerk('{{ $perk->slug }}')">
                             <div class="card-header">
                                 {{ $perk->name }}
