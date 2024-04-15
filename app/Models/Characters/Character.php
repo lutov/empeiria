@@ -28,9 +28,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $nickname
  * @property string $last_name
+ * @property string $species_id
+ * @property Species $species
  * @property string $age
- * @property string $bio
  * @property string $sex
+ * @property string $bio
  * @property int $avatar_id
  * @property Avatar $avatar
  * @property int $faction_id
@@ -61,6 +63,7 @@ class Character extends Model
         'name',
         'nickname',
         'last_name',
+        'species',
         'sex',
         'age',
         'bio',
@@ -77,7 +80,8 @@ class Character extends Model
         'name',
         'nickname',
         'last_name',
-        'gender_id',
+        'species',
+        'sex',
         'age',
         'bio',
         'avatar_id',
@@ -99,9 +103,9 @@ class Character extends Model
     /**
      * @return BelongsTo
      */
-    public function gender()
+    public function species()
     {
-        return $this->belongsTo('App\Models\Characters\Gender');
+        return $this->belongsTo(Species::class);
     }
 
     /**

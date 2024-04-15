@@ -1,9 +1,7 @@
 <?php
 
 use App\Models\Characters\Avatar;
-use App\Models\Characters\Gender;
-use App\Models\Factions\Faction;
-use App\Models\Squads\Squad;
+use App\Models\Characters\Species;
 use App\Models\Worlds\World;
 use Database\Seeders\DemoCharacterSeeder;
 use Illuminate\Database\Migrations\Migration;
@@ -26,9 +24,10 @@ class CreateCharactersTable extends Migration
             $table->string('name', 256);
             $table->string('nickname', 256)->nullable();
             $table->string('last_name', 256)->nullable();
-            $table->text('bio')->nullable();
+            $table->foreignIdFor(Species::class)->unsigned();
             $table->string('sex', 6)->default('male');
             $table->smallInteger('age')->unsigned()->default(21);
+            $table->text('bio')->nullable();
             $table->foreignIdFor(Avatar::class)->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
