@@ -66,14 +66,34 @@ Having learned about this curse, the majority of the grims decided to abandon ma
             array(
                 'name' => 'Hybrid',
                 'slug' => 'hybrid',
-                'description' => "",
-                'alt_description' => "",
+                'description' => "The fact that all three currently known intelligent species are capable of having common offspring is one of the main mysteries of science. Some believe that this means that despite their known differences, Albions, humans and grims are in fact representatives of the same species, which have changed externally under the influence of the environment, but remain quite similar internally. For others, it is just part of a religious picture of a world where all thinking beings are ultimately equal before the Creator. One way or another, the need to take into account not only personal compatibility, but also the characteristics of the species, made the intimate and marital spheres of society’s life complex and somewhat confusing.
+
+Hybrids are the descendants of representatives of different species. Modern science identifies three types of hybrids depending on the specific combination of parents.",
+                'alt_description' => "Тот факт, что все три ныне известных разумных вида способны иметь общее потомство, является одной из главных загадок науки. Некоторые полагают, что это значит, что несмотря на известные отличия, альбионы, люди и гримы на самом деле являются представителями одного вида, которые изменились внешне под действием среды, но остались достаточно похожи внутри. Для других это лишь часть религиозной картины мира, где все мыслящие существа в конечном итоге равны перед Создателем. Так или иначе, необходимость учитывать не только личную совместимость, но и особенности вида, сделало интимную и брачную сферы жизни общества сложными и отчасти запутанными.
+
+Гибриды - это потомки представителей разных видов. Современная наука выделяет три типа гибридов в зависимости от конкретной комбинации родителей.",
                 'icon' => '',
                 'parent_id' => null,
             ),
             array(
-                'name' => 'Hybrid',
-                'slug' => 'hybrid',
+                'name' => 'Albion Human',
+                'slug' => 'albion_human',
+                'description' => "",
+                'alt_description' => "",
+                'icon' => '',
+                'parent_id' => 4,
+            ),
+            array(
+                'name' => 'Grim Human',
+                'slug' => 'grim_human',
+                'description' => "",
+                'alt_description' => "",
+                'icon' => '',
+                'parent_id' => 4,
+            ),
+            array(
+                'name' => 'Grim Albion',
+                'slug' => 'grim_albion',
                 'description' => "",
                 'alt_description' => "",
                 'icon' => '',
