@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Characters\Species;
 use Database\Seeders\CharacterSpeciesSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,7 +21,7 @@ class CreateCharactersSpeciesTable extends Migration
             $table->text('description')->nullable();
             $table->text('alt_description')->nullable();
             $table->text('icon')->nullable();
-            $table->foreignIdFor(Species::class)->unsigned()->nullable();
+            $table->foreignId('parent_id')->unsigned()->nullable();
         });
         $seeder = new CharacterSpeciesSeeder();
         $seeder->run();

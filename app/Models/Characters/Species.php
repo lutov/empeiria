@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class Origin
  * @package App\Models\Character
+ *
+ * @method static whereNull(string $column)
  */
 class Species extends Model
 {

@@ -151,6 +151,16 @@
             }
             $('#availablePerks').val(availablePerks);
         }
+        function toggleHybridSpecies(slug)
+        {
+            let hybridSpeciesSelect = $('#hybridSpeciesSelect');
+            if(('hybrid' === slug) && 'disabled' === hybridSpeciesSelect.attr('disabled')) {
+                hybridSpeciesSelect.removeAttr('disabled');
+                hybridSpeciesSelect.focus();
+            } else {
+                hybridSpeciesSelect.attr('disabled', 'disabled');
+            }
+        }
     </script>
 
     <style>
@@ -168,6 +178,33 @@
 
             <div class="row mb-3">
                 <div class="col">
+
+                    <div class="mb-3">
+                        @foreach($species as $key => $value)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="species" id="species{{ $key }}"
+                                       value="{{ $value->slug }}"
+                                       autocomplete="off"
+                                       onchange="toggleHybridSpecies('{{ $value->slug }}')">
+                                <label class="form-check-label" for="species{{ $key }}"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="left"
+                                       data-bs-title="{{ $value->description }}"
+                                >{{ $value->name }}</label>
+                            </div>
+                            @if(count($value->children))
+                                <div class="form-check-inline">
+                                    <select id="hybridSpeciesSelect" class="form-select" aria-label="{{ $value->name }}"
+                                            autocomplete="off"
+                                            disabled="disabled">
+                                        @foreach($value->children as $childKey => $childValue)
+                                            <option value="{{ $childValue->slug }}">{{ $childValue->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
 
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
@@ -247,7 +284,8 @@
 
                     @foreach($qualities as $key => $quality)
                         <div class="input-group mb-3">
-                            <span class="input-group-text w-75" id="basic-addon{{ $key }}" data-bs-toggle="tooltip"
+                            <span class="input-group-text w-75" id="basic-addon{{ $key }}"
+                                  data-bs-toggle="tooltip"
                                   data-bs-placement="left"
                                   data-bs-title="{{ $quality->description }}">{{ $quality->name }}</span>
                             <button class="btn btn-danger" type="button" id="button-addon{{ $key }}"
