@@ -126,6 +126,7 @@
         }
         function setAge(age)
         {
+            $('#age').val(age);
             $('#displayAge').html(age);
         }
 
@@ -137,13 +138,16 @@
         };
         function togglePerk(perkSlug)
         {
+            let perk = $('#' + perkSlug);
             let perkCard = $('#' + perkSlug + '-perk-card');
             if((0 < availablePerks) && (false === perks[perkSlug])) {
+                perk.prop('checked', true);
                 perks[perkSlug] = true;
                 availablePerks -= 1;
                 perkCard.removeClass('border-success');
                 perkCard.addClass('text-bg-success');
             } else if(true === perks[perkSlug]) {
+                perk.prop('checked', false);
                 perks[perkSlug] = false;
                 availablePerks += 1;
                 perkCard.removeClass('text-bg-success');
@@ -161,6 +165,12 @@
                 hybridSpeciesSelect.attr('disabled', 'disabled');
             }
         }
+        function createCharacter()
+        {
+            let characterForm = $('#newCharacterForm');
+            let character = characterForm.serializeArray();
+            console.log(character);
+        }
     </script>
 
     <style>
@@ -175,6 +185,7 @@
     <div>
 
         <div id="newCharacterComponent">
+            <form method="POST" id="newCharacterForm">
 
             <div class="row mb-3">
                 <div class="col">
@@ -183,7 +194,7 @@
                         @foreach($species as $key => $value)
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="species" id="species{{ $key }}"
-                                       value="{{ $value->slug }}"
+                                       value="{{ $value->id }}"
                                        autocomplete="off"
                                        onchange="toggleHybridSpecies('{{ $value->slug }}')">
                                 <label class="form-check-label" for="species{{ $key }}"
@@ -194,11 +205,12 @@
                             </div>
                             @if(count($value->children))
                                 <div class="form-check-inline">
-                                    <select id="hybridSpeciesSelect" class="form-select" aria-label="{{ $value->name }}"
+                                    <select name="species" id="hybridSpeciesSelect" class="form-select"
+                                            aria-label="{{ $value->name }}"
                                             autocomplete="off"
                                             disabled="disabled">
                                         @foreach($value->children as $childKey => $childValue)
-                                            <option value="{{ $childValue->slug }}">{{ $childValue->name }}</option>
+                                            <option value="{{ $childValue->id }}">{{ $childValue->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -218,15 +230,20 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="text" id="firstName" class="form-control" placeholder="First Name" aria-label="First Name">
-                        <input type="text" id="nickname" class="form-control" placeholder="Nickname" aria-label="Nickname">
-                        <input type="text" id="lastName" class="form-control" placeholder="Last Name" aria-label="Last Name">
-                        <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
+                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name"
+                               aria-label="First Name">
+                        <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Nickname"
+                               aria-label="Nickname">
+                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name"
+                               aria-label="Last Name">
+                        <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random
+                        </button>
                     </div>
 
                     <div class="mb-3">
                         <label for="customRange2" class="form-label">Age: <span id="displayAge">25</span></label>
-                        <input type="range" class="form-range" min="25" max="50" step="5" id="customRange2" onchange="setAge($(this).val())">
+                        <input type="range" class="form-range" min="25" max="50" step="5" name="age" id="age" value="25"
+                               onchange="setAge($(this).val())" autocomplete="off">
                     </div>
 
                 </div>
@@ -292,7 +309,7 @@
                                     onclick="updateQualityPoints('-', '{{ $quality->slug }}', {{ $key }})">&minus;
                             </button>
                             <input type="text" class="form-control input-number" id="{{ $quality->slug }}"
-                                   name="{{ $quality->slug }}" placeholder="{{ $quality->name }}"
+                                   name="qualities[{{ $quality->slug }}]" placeholder="{{ $quality->name }}"
                                    aria-label="{{ $quality->name }}" aria-describedby="basic-addon{{ $key }}"
                                    value="{{ $quality->default_value }}" autocomplete="off">
                             <button class="btn btn-success" type="button" id="button-addon{{ $key }}"
@@ -325,6 +342,8 @@
             </div>
             <div class="row">
                 @foreach($perks as $perk)
+                    <input class="d-none" type="checkbox" value="{{ $perk->id }}" id="{{ $perk->slug }}" name="perks[]"
+                           autocomplete="off">
                     <div class="col-sm-3 mb-3">
                         <div id="{{ $perk->slug }}-perk-card" class="card h-100 perk-card border-success"
                              onclick="togglePerk('{{ $perk->slug }}')">
@@ -340,6 +359,15 @@
                 @endforeach
             </div>
 
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <button class="btn btn-success w-100" type="button" id="createCharacterButton"
+                            onclick="createCharacter()">Create Character
+                    </button>
+                </div>
+            </div>
+
+            </form>
         </div>
 
     </div>
