@@ -31,23 +31,22 @@ class DemoCharacterSeeder extends Seeder
         //$qualities = Quality::all();
         $character->user_id = $userId;
         $character->world_id = $userId;
+        $character->species_id = 1;
         $character->name = Name::random(['first_name' => 1, $sex => 1]);
         $character->nickname = Name::random(['nickname' => 1, $sex => 1]);
         $character->last_name = Name::random(['last_name' => 1, $sex => 1]);
-        $character->species_id = 1;
         $character->sex = $sex;
         $character->age = rand(18, 100);
         $character->bio = '';
-        $character->avatar_id = 1;
         $character->save();
-        /*
-        $characterQualities = array(
-            'character_id' => $character->id,
-        );
-        foreach ($qualities as $quality) {
-            $characterQualities[$quality->slug] = rand(1, 10);
+
+        $qualities = Quality::all();
+        foreach($qualities as $quality) {
+            $character->qualities()->attach($quality->id, array('value' => rand(3, 10)));
         }
-        Qualities::create($characterQualities);
+        $character->perks()->attach(array(1, 3, 5));
+
+        /*
         $inventory = new Inventory();
         $inventory->character_id = $character->id;
         $inventory->save();

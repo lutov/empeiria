@@ -21,14 +21,13 @@ class CreateCharactersTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreignIdFor(World::class)->unsigned();
+            $table->foreignIdFor(Species::class)->unsigned();
+            $table->string('sex', 6)->default('male');
             $table->string('name', 256);
             $table->string('nickname', 256)->nullable();
             $table->string('last_name', 256)->nullable();
-            $table->foreignIdFor(Species::class)->unsigned();
-            $table->string('sex', 6)->default('male');
             $table->smallInteger('age')->unsigned()->default(21);
             $table->text('bio')->nullable();
-            $table->foreignIdFor(Avatar::class)->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
         });
