@@ -100,7 +100,7 @@
                     types: ['first_name']
                 },
                 success: function (result) {
-                    $('#firstName').val(result);
+                    $('#first_name').val(result);
                 }
             });
             $.ajax({
@@ -120,10 +120,11 @@
                     types: ['last_name']
                 },
                 success: function (result) {
-                    $('#lastName').val(result);
+                    $('#last_name').val(result);
                 }
             });
         }
+
         function setAge(age)
         {
             $('#age').val(age);
@@ -155,6 +156,7 @@
             }
             $('#availablePerks').val(availablePerks);
         }
+
         function toggleHybridSpecies(slug)
         {
             let hybridSpeciesSelect = $('#hybridSpeciesSelect');
@@ -165,11 +167,24 @@
                 hybridSpeciesSelect.attr('disabled', 'disabled');
             }
         }
+
         function createCharacter()
         {
             let characterForm = $('#newCharacterForm');
             let character = characterForm.serializeArray();
-            console.log(character);
+            //console.log(character);
+            character.push({name: '_token', value: '{{ csrf_token() }}'});
+            $.ajax({
+                url: '/api/characters',
+                type: 'POST',
+                data: character,
+                success: function (result) {
+                    //console.log(result);
+                    if(result.id) {
+                        $(location).attr('href', '/games/{{ $gameId }}/worlds/{{ $worldId }}');
+                    }
+                }
+            });
         }
     </script>
 
@@ -186,6 +201,7 @@
 
         <div id="newCharacterComponent">
             <form method="POST" id="newCharacterForm">
+            <input class="d-none" type="text" value="{{ $worldId }}" name="world_id" autocomplete="off">
 
             <div class="row mb-3">
                 <div class="col">
@@ -193,7 +209,7 @@
                     <div class="mb-3">
                         @foreach($species as $key => $value)
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="species" id="species{{ $key }}"
+                                <input class="form-check-input" type="radio" name="species_id" id="species{{ $key }}"
                                        value="{{ $value->id }}"
                                        autocomplete="off"
                                        onchange="toggleHybridSpecies('{{ $value->slug }}')">
@@ -205,7 +221,7 @@
                             </div>
                             @if(count($value->children))
                                 <div class="form-check-inline">
-                                    <select name="species" id="hybridSpeciesSelect" class="form-select"
+                                    <select name="species_id" id="hybridSpeciesSelect" class="form-select"
                                             aria-label="{{ $value->name }}"
                                             autocomplete="off"
                                             disabled="disabled">
@@ -220,28 +236,28 @@
 
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="sex" id="inlineRadio1" value="male" checked="checked">
-                            <label class="form-check-label" for="inlineRadio1">Male</label>
+                            <input class="form-check-input" type="radio" name="sex" id="male" value="male" checked="checked">
+                            <label class="form-check-label" for="male">Male</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="sex" id="inlineRadio2" value="female">
-                            <label class="form-check-label" for="inlineRadio2">Female</label>
+                            <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+                            <label class="form-check-label" for="female">Female</label>
                         </div>
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name"
+                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name"
                                aria-label="First Name">
                         <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Nickname"
                                aria-label="Nickname">
-                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name"
+                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name"
                                aria-label="Last Name">
                         <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random
                         </button>
                     </div>
 
                     <div class="mb-3">
-                        <label for="customRange2" class="form-label">Age: <span id="displayAge">25</span></label>
+                        <label for="age" class="form-label">Age: <span id="displayAge">25</span></label>
                         <input type="range" class="form-range" min="25" max="50" step="5" name="age" id="age" value="25"
                                onchange="setAge($(this).val())" autocomplete="off">
                     </div>
@@ -269,6 +285,9 @@
                             <div class="carousel-item">
                                 <img src="/img/characters/avatars/newmale/04.png" class="d-block w-100" alt="...">
                             </div>
+                            <div class="carousel-item">
+                                <img src="/img/characters/avatars/newmale/05.png" class="d-block w-100" alt="...">
+                            </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -284,6 +303,7 @@
                             <img src="/img/characters/avatars/newmale/02.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="rounded-circle border border-2 border-white" aria-label="Slide 2">
                             <img src="/img/characters/avatars/newmale/03.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="rounded-circle border border-2 border-white" aria-label="Slide 3">
                             <img src="/img/characters/avatars/newmale/04.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" class="rounded-circle border border-2 border-white" aria-label="Slide 4">
+                            <img src="/img/characters/avatars/newmale/05.png" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" class="rounded-circle border border-2 border-white" aria-label="Slide 5">
                         </div>
 
                     </div>
@@ -309,7 +329,7 @@
                                     onclick="updateQualityPoints('-', '{{ $quality->slug }}', {{ $key }})">&minus;
                             </button>
                             <input type="text" class="form-control input-number" id="{{ $quality->slug }}"
-                                   name="qualities[{{ $quality->slug }}]" placeholder="{{ $quality->name }}"
+                                   name="qualities[{{ $quality->id }}]" placeholder="{{ $quality->name }}"
                                    aria-label="{{ $quality->name }}" aria-describedby="basic-addon{{ $key }}"
                                    value="{{ $quality->default_value }}" autocomplete="off">
                             <button class="btn btn-success" type="button" id="button-addon{{ $key }}"

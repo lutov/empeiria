@@ -23,7 +23,7 @@ class CreateCharactersTable extends Migration
             $table->foreignIdFor(World::class)->unsigned();
             $table->foreignIdFor(Species::class)->unsigned();
             $table->string('sex', 6)->default('male');
-            $table->string('name', 256);
+            $table->string('first_name', 256);
             $table->string('nickname', 256)->nullable();
             $table->string('last_name', 256)->nullable();
             $table->smallInteger('age')->unsigned()->default(21);

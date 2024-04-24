@@ -32,7 +32,7 @@ class DemoCharacterSeeder extends Seeder
         $character->user_id = $userId;
         $character->world_id = $userId;
         $character->species_id = 1;
-        $character->name = Name::random(['first_name' => 1, $sex => 1]);
+        $character->first_name = Name::random(['first_name' => 1, $sex => 1]);
         $character->nickname = Name::random(['nickname' => 1, $sex => 1]);
         $character->last_name = Name::random(['last_name' => 1, $sex => 1]);
         $character->sex = $sex;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Interfaces\MoveInterface;
 use App\Models\Characters\Character;
 use App\Models\Characters\Position;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -13,26 +14,20 @@ use Illuminate\Validation\ValidationException;
 class CharacterAPIController extends APIController implements MoveInterface
 {
 
-    private $slug = 'characters';
-    private $model = Character::class;
-    private $rules = [
-        'name' => ['required', 'string', 'max:255'],
-        'nickname' => ['string', 'max:255', 'nullable'],
-        'last_name' => ['string', 'max:255', 'nullable'],
-        'age' => ['numeric', 'nullable'],
-        'faction_id' => ['numeric', 'nullable'],
-        'faction_order' => ['numeric', 'nullable'],
-        'squad_id' => ['numeric', 'nullable'],
-        'squad_order' => ['numeric', 'nullable'],
-    ];
-
-    /**
-     * HomeController constructor.
-     */
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
+    private array $rules = array(
+        'world_id'          =>  array('required', 'numeric'),
+        'species_id'        =>  array('required', 'numeric'),
+        'sex'               =>  array('required', 'string', 'max:255'),
+        'first_name'        =>  array('required', 'string', 'max:255'),
+        'nickname'          =>  array('string', 'max:255', 'nullable'),
+        'last_name'         =>  array('string', 'max:255', 'nullable'),
+        'age'               =>  array('numeric', 'nullable'),
+        'bio'               =>  array('string', 'max:255', 'nullable'),
+        //'faction_id'      =>  ['numeric', 'nullable'],
+        //'faction_order'   =>  ['numeric', 'nullable'],
+        //'squad_id'        =>  ['numeric', 'nullable'],
+        //'squad_order'     =>  ['numeric', 'nullable'],
+    );
 
     /**
      * @param Request $request
@@ -51,7 +46,7 @@ class CharacterAPIController extends APIController implements MoveInterface
 
     /**
      * @param Request $request
-     * @return Character
+     * @return Character|JsonResponse
      * @throws ValidationException
      */
     public function store(Request $request)
@@ -60,21 +55,19 @@ class CharacterAPIController extends APIController implements MoveInterface
         $user = Auth::user();
         $validator = Validator::make($request->all(), $this->rules);
         if ($validator->passes()) {
-            $character->fill($validator->validated());
-            if ($request->has('avatar')) {
-                $avatar = $request->get('avatar');
-                if (isset($avatar['id'])) {
-                    $character->avatar_id = $avatar['id'];
-                }
-            }
-            if ($request->has('gender')) {
-                $gender = $request->get('gender');
-                if (isset($gender['id'])) {
-                    $character->gender_id = $gender['id'];
-                }
-            }
             $character->user_id = $user->id;
+            $character->fill($validator->validated());
             $character->save();
+
+            $qualities = $request->get('qualities', array());
+            foreach($qualities as $key => $value) {
+                $character->qualities()->attach($key, array('value' => $value));
+            }
+
+            $perks = $request->get('perks', array());
+            foreach($perks as $key => $value) {
+                $character->perks()->attach($value);
+            }
         } else {
             return response()->json($validator->messages(), 422);
         }

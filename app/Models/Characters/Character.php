@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $user_id
  * @property int $world_id
- * @property string $name
+ * @property string $first_name
  * @property string $nickname
  * @property string $last_name
  * @property string $species_id
@@ -60,35 +60,26 @@ class Character extends Model
     ];
     protected $visible = [
         'id',
-        'name',
+        'sex',
+        'first_name',
         'nickname',
         'last_name',
         'species',
-        'sex',
         'age',
         'bio',
         'qualities',
-        'avatar',
-        'faction_id',
-        'faction_order',
-        'squad_id',
-        'squad_order',
-        'inventory',
     ];
     protected $fillable = [
         'id',
-        'name',
+        'user_id',
+        'world_id',
+        'species_id',
+        'sex',
+        'first_name',
         'nickname',
         'last_name',
-        'species',
-        'sex',
         'age',
         'bio',
-        'avatar_id',
-        'faction_id',
-        'faction_order',
-        'squad_id',
-        'squad_order',
     ];
 
     /**
