@@ -17,14 +17,19 @@ class CreateBiomesTable extends Migration
         Schema::create('biomes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 256);
-            $table->smallInteger('height_min');
-            $table->smallInteger('height_max');
-            $table->smallInteger('temperature_min');
-            $table->smallInteger('temperature_max');
-            $table->smallInteger('humidity_min');
-            $table->smallInteger('humidity_max');
-            $table->string('color', 256);
-            $table->timestamps();
+            $table->string('slug', 256);
+            $table->text('description')->nullable();
+            $table->text('alt_description')->nullable();
+            $table->smallInteger('height');
+            $table->boolean('passable');
+            $table->smallInteger('energy_cost');
+            $table->boolean('solid');
+            $table->boolean('liquid');
+            $table->boolean('gas');
+            $table->boolean('plasma');
+            $table->smallInteger('red');
+            $table->smallInteger('green');
+            $table->smallInteger('blue');
         });
         $seeder = new BiomeSeeder();
         $seeder->run();

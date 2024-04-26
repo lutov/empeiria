@@ -5,27 +5,34 @@ namespace App\Models\Worlds;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string name
- * @property int height_min
- * @property int height_max
- * @property int temperature_min
- * @property int temperature_max
- * @property int humidity_min
- * @property int humidity_max
+ * @property int height
  * @property string color
+ *
+ * @method static create(array $biome)
+ * @method static find(int $id)
  */
 class Biome extends Model
 {
-
-    /**
-     * @return HasMany
-     */
-    public function regions()
-    {
-        return $this->hasMany('App\Models\World\Region');
-    }
-
+    protected $table = 'biomes';
+    public $timestamps = false;
+    protected $fillable = array(
+        'id',
+        'name',
+        'slug',
+        'description',
+        'alt_description',
+        'height',
+        'passable',
+        'energy_cost',
+        'liquid',
+        'solid',
+        'gas',
+        'plasma',
+        'red',
+        'green',
+        'blue',
+    );
 }
