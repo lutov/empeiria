@@ -13,7 +13,7 @@
 
         <h1>{{ $seed }}</h1>
 
-        <img src="{{ $filename }}?t={{ time() }}">
+        <img src="{{ $fullPath }}?t={{ time() }}">
 
     </div>
 @endsection

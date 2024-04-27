@@ -45,7 +45,7 @@ class MapHelper
      */
     public function getNoiseMap()
     {
-        $seed = $this->seed;
+        $seed = (is_int($this->seed)) ? $this->seed : crc32($this->seed);
         $octaves = $this->octaves;
         $size = $this->size;
         $highestPoint = 0.0;
@@ -116,15 +116,19 @@ class MapHelper
     /**
      * @param $image
      * @param string $filename
+     * @return string
      */
     public function saveImage($image, string $filename)
     {
         $worldId = $this->worldId;
         $path = 'img/worlds/'.$worldId;
-        File::makeDirectory(public_path($path));
-        $filename = $path.'/'.$filename.'.png';
-        imagepng($image, public_path($filename));
+        if(!File::exists($path)) {
+            File::makeDirectory(public_path($path));
+        }
+        $fullPath = $path.'/'.$filename.'.png';
+        imagepng($image, public_path($fullPath));
         imagedestroy($image);
+        return $fullPath;
     }
 
     /**
