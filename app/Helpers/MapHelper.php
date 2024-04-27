@@ -58,10 +58,14 @@ class MapHelper
             }
 
             $lowPoint = min($map[$iy]);
-            if($lowPoint < $lowestPoint) {$lowestPoint = $lowPoint;}
+            if ($lowPoint < $lowestPoint) {
+                $lowestPoint = $lowPoint;
+            }
 
             $highPoint = max($map[$iy]);
-            if($highestPoint < $highPoint) {$highestPoint = $highPoint;}
+            if ($highestPoint < $highPoint) {
+                $highestPoint = $highPoint;
+            }
         }
         $this->noiseMap = $map;
         $this->heightMap = new HeightMapHelper($lowestPoint, $highestPoint);
@@ -78,8 +82,8 @@ class MapHelper
         $map = $this->noiseMap;
         $heightMap = $this->heightMap;
         $biomeMap = array();
-        for ($iy = 0; $iy < $size/$tileSize; $iy++) {
-            for ($ix = 0; $ix < $size/$tileSize; $ix++) {
+        for ($iy = 0; $iy < $size / $tileSize; $iy++) {
+            for ($ix = 0; $ix < $size / $tileSize; $ix++) {
                 $biomeMap[$iy][$ix] = BiomeHelper::getIdByTileHeight($map[$iy][$ix], $heightMap);
             }
         }
@@ -121,11 +125,11 @@ class MapHelper
     public function saveImage($image, string $filename)
     {
         $worldId = $this->worldId;
-        $path = 'img/worlds/'.$worldId;
-        if(!File::exists($path)) {
+        $path = 'img/worlds/' . $worldId;
+        if (!File::exists($path)) {
             File::makeDirectory(public_path($path));
         }
-        $fullPath = $path.'/'.$filename.'.png';
+        $fullPath = $path . '/' . $filename . '.png';
         imagepng($image, public_path($fullPath));
         imagedestroy($image);
         return $fullPath;
@@ -144,4 +148,56 @@ class MapHelper
         return $imageContent;
     }
 
+    /**
+     * @return false|string
+     */
+    public function getPreview()
+    {
+        // TODO check performance
+        $seed = (is_int($this->seed)) ? $this->seed : crc32($this->seed);
+        $octaves = $this->octaves;
+        $size = $this->size;
+        $tileSize = $this->tileSize;
+        $highestPoint = 0.0;
+        $lowestPoint = 0.0;
+        $map = array();
+        $generator = new PerlinNoiseHelper($seed);
+        for ($iy = 0; $iy < $size; $iy++) {
+            for ($ix = 0; $ix < $size; $ix++) {
+                $map[$iy][$ix] = $generator->noise($ix, $iy, $size, $octaves);
+            }
+
+            $lowPoint = min($map[$iy]);
+            if ($lowPoint < $lowestPoint) {
+                $lowestPoint = $lowPoint;
+            }
+
+            $highPoint = max($map[$iy]);
+            if ($highestPoint < $highPoint) {
+                $highestPoint = $highPoint;
+            }
+        }
+        $heightMap = new HeightMapHelper($lowestPoint, $highestPoint);
+        $image = imagecreatetruecolor($size, $size);
+        for ($iy = 0; $iy < $size / $tileSize; $iy++) {
+            for ($ix = 0; $ix < $size / $tileSize; $ix++) {
+                $biomeId = BiomeHelper::getIdByTileHeight($map[$iy][$ix], $heightMap);
+                $rgb = BiomeHelper::getRGB($biomeId);
+                $color = imagecolorallocate($image, $rgb['red'], $rgb['green'], $rgb['blue']);
+                imagefilledrectangle(
+                    $image,
+                    ($ix * $tileSize),
+                    ($iy * $tileSize),
+                    ($ix * $tileSize) + $tileSize,
+                    ($iy * $tileSize) + $tileSize,
+                    $color
+                );
+            }
+        }
+        ob_start();
+        imagepng($image);
+        $imageContent = ob_get_clean();
+        imagedestroy($image);
+        return $imageContent;
+    }
 }

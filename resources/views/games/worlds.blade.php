@@ -24,7 +24,7 @@
                 success: function (result) {
                     $('#name').val(result);
                     $('#seed').val(result);
-                    $('#octaves').val(6);
+                    $('#octaves').val('3, 6, 12, 24');
                 }
             });
         }
