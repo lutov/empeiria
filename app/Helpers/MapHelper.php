@@ -13,6 +13,7 @@ class MapHelper
     public array $octaves;
     public int $size;
     public int $tileSize;
+    public float $scale;
     public array $noiseMap;
     public HeightMapHelper $heightMap;
     public array $biomeMap;
@@ -25,19 +26,22 @@ class MapHelper
      * @param array $octaves
      * @param int $size
      * @param int $tileSize
+     * @param int $scale
      */
     public function __construct(
         int $worldId = 0,
         string $seed = '',
         array $octaves = array(),
         int $size = 0,
-        int $tileSize = 0
+        int $tileSize = 0,
+        int $scale = 0
     ) {
         $this->worldId = $worldId;
         $this->seed = $seed;
         $this->octaves = $octaves;
         $this->size = $size;
         $this->tileSize = $tileSize;
+        $this->scale = $scale;
     }
 
     /**
@@ -48,13 +52,17 @@ class MapHelper
         $seed = (is_int($this->seed)) ? $this->seed : crc32($this->seed);
         $octaves = $this->octaves;
         $size = $this->size;
+        $scale = $this->scale;
         $highestPoint = 0.0;
         $lowestPoint = 0.0;
         $map = array();
         $generator = new PerlinNoiseHelper($seed);
-        for ($iy = 0; $iy < $size; $iy++) {
-            for ($ix = 0; $ix < $size; $ix++) {
-                $map[$iy][$ix] = $generator->noise($ix, $iy, $size, $octaves);
+        $sizeY = ($size * $scale);
+        $sizeX = ($size * $scale);
+        for ($iy = 0; $iy < $sizeY; $iy++) {
+            for ($ix = 0; $ix < $sizeX; $ix++) {
+                $noise = $generator->noise($ix, $iy, $size, $octaves);
+                $map[$iy][$ix] = $noise;
             }
 
             $lowPoint = min($map[$iy]);
@@ -67,8 +75,8 @@ class MapHelper
                 $highestPoint = $highPoint;
             }
         }
-        $this->noiseMap = $map;
         $this->heightMap = new HeightMapHelper($lowestPoint, $highestPoint);
+        $this->noiseMap = $map;
         return $map;
     }
 
@@ -79,11 +87,12 @@ class MapHelper
     {
         $size = $this->size;
         $tileSize = $this->tileSize;
+        $scale = $this->scale;
         $map = $this->noiseMap;
         $heightMap = $this->heightMap;
         $biomeMap = array();
-        for ($iy = 0; $iy < $size / $tileSize; $iy++) {
-            for ($ix = 0; $ix < $size / $tileSize; $ix++) {
+        for ($iy = 0; $iy < ($size * $scale) / $tileSize; $iy++) {
+            for ($ix = 0; $ix < ($size * $scale) / $tileSize; $ix++) {
                 $biomeMap[$iy][$ix] = BiomeHelper::getIdByTileHeight($map[$iy][$ix], $heightMap);
             }
         }
@@ -98,10 +107,11 @@ class MapHelper
     {
         $size = $this->size;
         $tileSize = $this->tileSize;
+        $scale = $this->scale;
         $biomeMap = $this->biomeMap;
-        $image = imagecreatetruecolor($size, $size);
-        for ($iy = 0; $iy < $size / $tileSize; $iy++) {
-            for ($ix = 0; $ix < $size / $tileSize; $ix++) {
+        $image = imagecreatetruecolor(($size * $scale), ($size * $scale));
+        for ($iy = 0; $iy < ($size * $scale) / $tileSize; $iy++) {
+            for ($ix = 0; $ix < ($size * $scale) / $tileSize; $ix++) {
                 $rgb = BiomeHelper::getRGB($biomeMap[$iy][$ix]);
                 $color = imagecolorallocate($image, $rgb['red'], $rgb['green'], $rgb['blue']);
                 imagefilledrectangle(

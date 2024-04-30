@@ -5,6 +5,7 @@ namespace App\Helpers;
 
 
 use App\Models\Worlds\Biome;
+use Illuminate\Support\Facades\Cache;
 
 class BiomeHelper
 {
@@ -15,7 +16,9 @@ class BiomeHelper
      */
     public static function getIdByTileHeight(float $tileHeight, HeightMapHelper $heightMap)
     {
-        $biomes = Biome::all();
+        $biomes = Cache::rememberForever('biomes', function () {
+            return Biome::all();
+        });
         foreach($biomes as $biome) {
             if($tileHeight < $heightMap->get($biome->height)) {
                 return $biome->id;
@@ -30,7 +33,9 @@ class BiomeHelper
      */
     public static function getRGB(int $id)
     {
-        $biome = Biome::find($id);
+        $biome = Cache::rememberForever('biome_'.$id, function () use ($id) {
+            return Biome::find($id);
+        });;
         return array(
             'red' => $biome->red,
             'green' => $biome->green,

@@ -17,10 +17,11 @@ class DemoController extends Controller
     {
         $seed = 'buhurt';
         $octaves = array(3, 6, 12, 24);
-        $size = 1000;
-        $tileSize = 5;
-        $filename = 'visual5';
-        $map = new MapHelper(1, $seed, $octaves, $size, $tileSize);
+        $size = 100;
+        $tileSize = 6;
+        $scale = 12;
+        $filename = 'visual12';
+        $map = new MapHelper(1, $seed, $octaves, $size, $tileSize, $scale);
         $map->getNoiseMap();
         $map->getBiomeMap();
         $image = $map->getImage();
