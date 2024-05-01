@@ -33,14 +33,22 @@ class BiomeHelper
      */
     public static function getRGB(int $id)
     {
+        $result = array(
+            'red' => 255,
+            'green' => 255,
+            'blue' => 255,
+        );
         $biome = Cache::rememberForever('biome_'.$id, function () use ($id) {
             return Biome::find($id);
-        });;
-        return array(
-            'red' => $biome->red,
-            'green' => $biome->green,
-            'blue' => $biome->blue,
-        );
+        });
+        if($biome) {
+            $result = array(
+                'red' => $biome->red,
+                'green' => $biome->green,
+                'blue' => $biome->blue,
+            );
+        }
+        return $result;
     }
 
 }

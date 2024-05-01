@@ -15,6 +15,7 @@ class MapHelper
     public int $tileSize;
     public float $scale;
     public array $noiseMap;
+    public array $mask;
     public HeightMapHelper $heightMap;
     public array $biomeMap;
     public $image;
@@ -61,8 +62,9 @@ class MapHelper
         $sizeX = ($size * $scale);
         for ($iy = 0; $iy < $sizeY; $iy++) {
             for ($ix = 0; $ix < $sizeX; $ix++) {
+                $base = $generator->noise($ix, $iy, $size, array(64));
                 $noise = $generator->noise($ix, $iy, $size, $octaves);
-                $map[$iy][$ix] = $noise;
+                $map[$iy][$ix] = $base + ($noise / 4);
             }
 
             $lowPoint = min($map[$iy]);
