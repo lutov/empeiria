@@ -23,9 +23,92 @@
     <script>
         const endpoint = '/api/games';
         $(function() {
-            //
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            let canvasOffset = $("#canvas").offset();
+            let offsetX = canvasOffset.left;
+            let offsetY = canvasOffset.top;
+
+            // animation variables
+            let currentX = 10;
+            let currentY = 10;
+            let frameCount = 60;
+            let timer;
+            let points;
+            let currentFrame;
+
+            function animate() {
+                let point = points[currentFrame++];
+                draw(point.x, point.y);
+
+                // refire the timer until out-of-points
+                if (currentFrame < points.length) {
+                    timer = setTimeout(animate, 1000 / 60);
+                }
+            }
+
+            function linePoints(x1, y1, x2, y2, frames) {
+                let dx = x2 - x1;
+                let dy = y2 - y1;
+                let length = Math.sqrt(dx * dx + dy * dy);
+                let incrementX = dx / frames;
+                let incrementY = dy / frames;
+                let a = [];
+
+                a.push({
+                    x: x1,
+                    y: y1
+                });
+                for (let frame = 0; frame < frames - 1; frame++) {
+                    a.push({
+                        x: x1 + (incrementX * frame),
+                        y: y1 + (incrementY * frame)
+                    });
+                }
+                a.push({
+                    x: x2,
+                    y: y2
+                });
+                return (a);
+            }
+
+            function draw(x, y) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.fillStyle = "skyblue";
+                ctx.strokeStyle = "gray";
+                ctx.rect(x, y, 30, 20);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            function handleMouseDown(e) {
+                mouseX = parseInt(e.clientX - offsetX);
+                mouseY = parseInt(e.clientY - offsetY);
+                $("#downlog").html("Down: " + mouseX + " / " + mouseY);
+
+                // Put your mousedown stuff here
+                points = linePoints(currentX, currentY, mouseX, mouseY, frameCount);
+                currentFrame = 0;
+                currentX = mouseX;
+                currentY = mouseY;
+                animate();
+            }
+
+            $("#canvas").mousedown(function(e) {
+                handleMouseDown(e);
+            });
+
+            draw(10, 10);
         });
     </script>
+
+    <style>
+        #canvas {
+            border:1px solid red;
+        }
+    </style>
 
     <div>
 
@@ -49,6 +132,10 @@
         <div class="text-center">
             <img src="/img/worlds/{{ $world->id }}/map.png" class="" alt="...">
         </div>
+
+        <p>Click to move the rectangle to the mouseclick</p>
+        <p id="downlog">Down</p>
+        <canvas id="canvas" width=300 height=300></canvas>
 
     </div>
 @endsection
