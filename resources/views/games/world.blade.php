@@ -23,6 +23,9 @@
     <script>
         const endpoint = '/api/games';
 
+        let oldX = 0;
+        let oldY = 0;
+
         function draw(x, y)
         {
             let map = document.getElementById("canvas");
@@ -34,21 +37,31 @@
                 ctx.drawImage(mapImage, 0, 0);
             }
 
+            let rulersImage = new Image();
+            rulersImage.src = '/img/map/rulers.png';
+            rulersImage.onload = function() {
+                ctx.drawImage(rulersImage, 0, 0);
+            }
+
             let playerSquadImage = new Image();
             playerSquadImage.src = '/img/squads/emblems/001.png';
             playerSquadImage.onload = function() {
-                ctx.drawImage(playerSquadImage, x, y);
+                let newX = oldX + x;
+                let newY = oldY + y;
+                ctx.drawImage(playerSquadImage, newX, newY);
+                oldX = newX;
+                oldY = newY;
             }
         }
 
         $(function() {
-            draw(564, 564);
+            draw(569, 568);
         });
     </script>
 
     <style>
         #canvas {
-            border:1px solid red;
+            border:1px solid black;
         }
     </style>
 
@@ -72,7 +85,7 @@
         </ul>
 
         <div class="text-center">
-            <canvas id="canvas" width="1200" height="1200" onclick="draw(256, 256)"></canvas>
+            <canvas id="canvas" width="1200" height="1200" onclick="draw(10, 10)"></canvas>
         </div>
 
     </div>
