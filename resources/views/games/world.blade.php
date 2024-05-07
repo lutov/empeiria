@@ -22,7 +22,9 @@
 @section('content')
     <script>
         const endpoint = '/api/games';
-        $(function() {
+
+        function draw(x, y)
+        {
             let map = document.getElementById("canvas");
             let ctx = map.getContext('2d');
 
@@ -35,8 +37,12 @@
             let playerSquadImage = new Image();
             playerSquadImage.src = '/img/squads/emblems/001.png';
             playerSquadImage.onload = function() {
-                ctx.drawImage(playerSquadImage, 546, 546);
+                ctx.drawImage(playerSquadImage, x, y);
             }
+        }
+
+        $(function() {
+            draw(564, 564);
         });
     </script>
 
@@ -66,7 +72,7 @@
         </ul>
 
         <div class="text-center">
-            <canvas id="canvas" width="1200" height="1200"></canvas>
+            <canvas id="canvas" width="1200" height="1200" onclick="draw(256, 256)"></canvas>
         </div>
 
     </div>
