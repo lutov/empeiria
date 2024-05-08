@@ -21,41 +21,59 @@
 
 @section('content')
     <script>
-        const endpoint = '/api/games';
-
-        let oldX = 0;
-        let oldY = 0;
-
-        function draw(x, y)
-        {
-            let map = document.getElementById("canvas");
-            let ctx = map.getContext('2d');
+        $(function() {
+            const mapWidth = 1200;
+            const mapHeight = 1200;
+            const map = document.getElementById("canvas");
+            const context = map.getContext('2d');
 
             let mapImage = new Image();
             mapImage.src = '/img/worlds/{{ $world->id }}/map.png';
             mapImage.onload = function() {
-                ctx.drawImage(mapImage, 0, 0);
+                context.drawImage(mapImage, 0, 0);
             }
 
             let rulersImage = new Image();
             rulersImage.src = '/img/map/rulers.png';
             rulersImage.onload = function() {
-                ctx.drawImage(rulersImage, 0, 0);
+                context.drawImage(rulersImage, 0, 0);
             }
 
+            let playerSquadImageWidth = 64;
+            let playerSquadImageHeight = 64;
+            let x = ((mapWidth / 2) - (playerSquadImageWidth / 2));
+            let y = ((mapHeight / 2) - (playerSquadImageHeight / 2));
             let playerSquadImage = new Image();
             playerSquadImage.src = '/img/squads/emblems/001.png';
             playerSquadImage.onload = function() {
-                let newX = oldX + x;
-                let newY = oldY + y;
-                ctx.drawImage(playerSquadImage, newX, newY);
-                oldX = newX;
-                oldY = newY;
+                context.drawImage(playerSquadImage, x, y);
             }
-        }
 
-        $(function() {
-            draw(569, 568);
+            function update(event)
+            {
+                let mouseX = parseInt(event.offsetX);
+                let mouseY = parseInt(event.offsetY);
+
+                let a = x - mouseX;
+                let b = y - mouseY;
+                let c = Math.sqrt( a*a + b*b );
+                console.log(c);
+
+                x = (mouseX - (playerSquadImageWidth / 2));
+                y = (mouseY - (playerSquadImageHeight / 2));
+            }
+
+            function render(x, y)
+            {
+                context.drawImage(mapImage, 0, 0);
+                context.drawImage(rulersImage, 0, 0);
+                context.drawImage(playerSquadImage, x, y);
+            }
+
+            $(map).mousedown(function(event) {
+                update(event);
+                render(x, y);
+            });
         });
     </script>
 
@@ -85,7 +103,7 @@
         </ul>
 
         <div class="text-center">
-            <canvas id="canvas" width="1200" height="1200" onclick="draw(10, 10)"></canvas>
+            <canvas id="canvas" width="1200" height="1200"></canvas>
         </div>
 
     </div>
