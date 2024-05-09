@@ -43,6 +43,7 @@
             let playerSquadImageHeight = 64;
             let x = ((mapWidth / 2) - (playerSquadImageWidth / 2));
             let y = ((mapHeight / 2) - (playerSquadImageHeight / 2));
+            let distance = 0;
             let playerSquadImage = new Image();
             playerSquadImage.src = '/img/squads/emblems/001.png';
             playerSquadImage.onload = function() {
@@ -54,13 +55,16 @@
                 let mouseX = parseInt(event.offsetX);
                 let mouseY = parseInt(event.offsetY);
 
-                let a = x - mouseX;
-                let b = y - mouseY;
-                let c = Math.sqrt( a*a + b*b );
-                console.log(c);
+                let newX = (mouseX - (playerSquadImageWidth / 2));
+                let newY = (mouseY - (playerSquadImageHeight / 2));
 
-                x = (mouseX - (playerSquadImageWidth / 2));
-                y = (mouseY - (playerSquadImageHeight / 2));
+                let a = x - newX;
+                let b = y - newY;
+
+                distance = parseInt(Math.sqrt( a*a + b*b ));
+
+                x = newX;
+                y = newY;
             }
 
             function render(x, y)
@@ -68,6 +72,14 @@
                 context.drawImage(mapImage, 0, 0);
                 context.drawImage(rulersImage, 0, 0);
                 context.drawImage(playerSquadImage, x, y);
+
+                context.fillStyle = '#ffffff';
+                context.fillRect(x + 74, y, 128, 64);
+
+                let text = "Travel distance: " + distance;
+                context.fillStyle = 'black';
+                context.font = '12px Arial';
+                context.fillText(text, x + 84, y + 20);
             }
 
             $(map).mousedown(function(event) {
