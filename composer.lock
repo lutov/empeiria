@@ -4,8 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7dc41f685f6fb05d72f5c9ac06e329c",
+    "content-hash": "0e45eed240b9db961a96cb105fe8bfe9",
     "packages": [
+        {
+            "name": "blackscorp/astar",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BlackScorp/astar.git",
+                "reference": "9b80d6135ac31947d246cf2e33ff45d4681a6a57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BlackScorp/astar/zipball/9b80d6135ac31947d246cf2e33ff45d4681a6a57",
+                "reference": "9b80d6135ac31947d246cf2e33ff45d4681a6a57",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BlackScorp\\Astar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vitalij Mik",
+                    "email": "cccpmik+composer@gmail.com"
+                }
+            ],
+            "description": "AStar path finding implementation in php",
+            "support": {
+                "issues": "https://github.com/BlackScorp/astar/issues",
+                "source": "https://github.com/BlackScorp/astar/tree/v1.2.0"
+            },
+            "time": "2017-10-06T15:21:22+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",

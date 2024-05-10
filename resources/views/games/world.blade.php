@@ -61,7 +61,22 @@
                 let a = x - newX;
                 let b = y - newY;
 
-                distance = parseInt(Math.sqrt( a*a + b*b ));
+                distance = parseInt(Math.sqrt((a * a) + (b * b)));
+
+                $.ajax({
+                    url: '/api/worlds/{{ $world->id }}/path',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        x: x,
+                        y: y,
+                        mouseX: newX,
+                        mouseY: newY
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    }
+                });
 
                 x = newX;
                 y = newY;

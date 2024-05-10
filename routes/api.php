@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return $request->user();
     })->name('api.user');
 
+    Route::post('/worlds/{id}/path', array(WorldAPIController::class, 'path'))->name('world.path');
+
     Route::post('/maps/preview', array(MapAPIController::class, 'preview'))->name('map.preview');
 
     Route::group(array('prefix' => 'factions'), function () {

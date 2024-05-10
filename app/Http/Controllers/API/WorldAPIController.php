@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\MapHelper;
 use App\Helpers\PerlinNoiseHelper;
+use App\Models\Worlds\Biome;
 use App\Models\Worlds\World;
+use BlackScorp\Astar\Astar;
+use BlackScorp\Astar\Grid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 class WorldAPIController extends APIController
@@ -152,6 +157,85 @@ class WorldAPIController extends APIController
             $result = array('r' => 161, 'g' => 175, 'b' => 184);
         }
         return $result;
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return array
+     */
+    public function path(Request $request, int $id)
+    {
+        $path = array();
+        $world = World::find($id);
+        $tileSize = 6;
+
+        $x = $request->get('x');
+        $y = $request->get('y');
+        $mouseX = $request->get('mouseX');
+        $mouseY = $request->get('mouseY');
+
+        if($x < $mouseX) {
+            $startX = $x;
+            $endX = $mouseX;
+        } else {
+            $startX = $mouseX;
+            $endX = $x;
+        }
+
+        if($y < $mouseY) {
+            $startY = $y;
+            $endY = $mouseY;
+        } else {
+            $startY = $mouseY;
+            $endY = $y;
+        }
+
+        $startTileY = (int) round(($startY / $tileSize), 0, PHP_ROUND_HALF_DOWN);
+        $startTileX = (int) round(($startX / $tileSize), 0, PHP_ROUND_HALF_DOWN);
+        $endTileY = (int) round(($endY / $tileSize), 0, PHP_ROUND_HALF_DOWN);
+        $endTileX = (int) round(($endX / $tileSize), 0, PHP_ROUND_HALF_DOWN);
+
+        if (isset($world->id)) {
+            $biomeMap = Cache::rememberForever('biome_map_'.$world->id, function () use ($world, $tileSize) {
+                $octaves = array(3, 6, 12, 24);
+                $size = 100;
+                $scale = 12;
+                $map = new MapHelper($world->id, $world->seed, $octaves, $size, $tileSize, $scale);
+                $map->getNoiseMap();
+                return $map->getBiomeMap();
+            });
+
+            $map = array();
+            for($iy = $startY; $iy <= $endY; $iy++) {
+                for($ix = $startX; $ix <= $endX; $ix++) {
+                    $tileY = (int) round(($iy / $tileSize), 0, PHP_ROUND_HALF_DOWN);
+                    $tileX = (int) round(($ix / $tileSize), 0, PHP_ROUND_HALF_DOWN);
+                    if(isset($map[$tileY][$tileX])) {
+                        continue;
+                    }
+                    $biomeId = $biomeMap[$tileY][$tileX];
+                    $biome = Cache::rememberForever('biome_'.$biomeId, function () use ($biomeId) {
+                        return Biome::find($biomeId);
+                    });
+                    $map[$tileY][$tileX] = $biome->energy_cost;
+                }
+            }
+
+            $grid = new Grid($map);
+            $startPosition = $grid->getPoint($startTileY, $startTileX);
+            $endPosition = $grid->getPoint($endTileY, $endTileX);
+            $aStar = new Astar($grid);
+            $nodes = $aStar->search($startPosition,$endPosition);
+            if(count($nodes)) {
+                foreach($nodes as $key => $node) {
+                    $path[$key] = array($node->getY(), $node->getX());
+                }
+            } else {
+                // echo "Path not found";
+            }
+        }
+        return $path;
     }
 
 }
