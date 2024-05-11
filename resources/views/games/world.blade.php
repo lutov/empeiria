@@ -43,7 +43,9 @@
             let playerSquadImageHeight = 64;
             let x = ((mapWidth / 2) - (playerSquadImageWidth / 2));
             let y = ((mapHeight / 2) - (playerSquadImageHeight / 2));
-            let distance = 0;
+            let movePath = [];
+            let moveDistance = 0;
+            let moveEnergy = 0;
             let playerSquadImage = new Image();
             playerSquadImage.src = '/img/squads/emblems/001.png';
             playerSquadImage.onload = function() {
@@ -61,7 +63,7 @@
                 let a = x - newX;
                 let b = y - newY;
 
-                distance = parseInt(Math.sqrt((a * a) + (b * b)));
+                moveDistance = parseInt(Math.sqrt((a * a) + (b * b)));
 
                 $.ajax({
                     url: '/api/worlds/{{ $world->id }}/path',
@@ -74,32 +76,65 @@
                         mouseY: newY
                     },
                     success: function(result) {
-                        console.log(result);
+                        // console.log(result);
+                        movePath = result.path;
+                        moveEnergy = result.energy;
+
+                        x = newX;
+                        y = newY;
+
+                        render(x, y);
                     }
                 });
-
-                x = newX;
-                y = newY;
             }
 
             function render(x, y)
             {
                 context.drawImage(mapImage, 0, 0);
                 context.drawImage(rulersImage, 0, 0);
+
+                renderPath(movePath);
+
                 context.drawImage(playerSquadImage, x, y);
 
                 context.fillStyle = '#ffffff';
                 context.fillRect(x + 74, y, 128, 64);
 
-                let text = "Travel distance: " + distance;
+                let lineHeight = 20;
+                let text = "Travel distance: " + moveDistance;
                 context.fillStyle = 'black';
                 context.font = '12px Arial';
-                context.fillText(text, x + 84, y + 20);
+                context.fillText(text, x + 84, y + lineHeight);
+                text = "Energy cost: " + moveEnergy;
+                context.fillText(text, x + 84, y + (lineHeight * 2));
+            }
+
+            function renderPath(path)
+            {
+                let tileSize = 6;
+                let shift = (playerSquadImageWidth / 2);
+                let dirY = 1;
+                let dirX = 1;
+                let posY = 0;
+                let posX = 0;
+                let lastY = 0;
+                let lastX = 0;
+                console.log(path);
+                context.fillStyle = 'red';
+                $(path).each(function(index, element) {
+                    // TODO fix moves backwards
+                    posY = (element[0] * tileSize);
+                    if(posY < lastY) {dirY = -1;} else {dirY = 1;}
+                    posX = (element[1] * tileSize);
+                    if(posX < lastX) {dirX = -1;} else {dirX = 1;}
+                    context.fillRect((posX * dirX) + (shift * dirX), (posY * dirY) + (shift * dirY), tileSize, tileSize);
+                    lastY = posY;
+                    lastX = posX;
+                });
             }
 
             $(map).mousedown(function(event) {
                 update(event);
-                render(x, y);
             });
         });
     </script>

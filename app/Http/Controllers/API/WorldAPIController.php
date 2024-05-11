@@ -166,6 +166,7 @@ class WorldAPIController extends APIController
      */
     public function path(Request $request, int $id)
     {
+        $result = array();
         $path = array();
         $world = World::find($id);
         $tileSize = 6;
@@ -197,6 +198,7 @@ class WorldAPIController extends APIController
         $endTileX = (int) round(($endX / $tileSize), 0, PHP_ROUND_HALF_DOWN);
 
         if (isset($world->id)) {
+            // TODO add refresh option
             $biomeMap = Cache::rememberForever('biome_map_'.$world->id, function () use ($world, $tileSize) {
                 $octaves = array(3, 6, 12, 24);
                 $size = 100;
@@ -222,6 +224,7 @@ class WorldAPIController extends APIController
                 }
             }
 
+            $energy = 0;
             $grid = new Grid($map);
             $startPosition = $grid->getPoint($startTileY, $startTileX);
             $endPosition = $grid->getPoint($endTileY, $endTileX);
@@ -230,12 +233,15 @@ class WorldAPIController extends APIController
             if(count($nodes)) {
                 foreach($nodes as $key => $node) {
                     $path[$key] = array($node->getY(), $node->getX());
+                    $energy += $map[$node->getY()][$node->getX()];
                 }
+                $result['energy'] = $energy;
+                $result['path'] = $path;
             } else {
                 // echo "Path not found";
             }
         }
-        return $path;
+        return $result;
     }
 
 }
