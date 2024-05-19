@@ -12,6 +12,7 @@ use App\Models\Factions\Faction;
 use App\Models\Games\Game;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -39,6 +40,16 @@ class World extends Model
     public function game()
     {
         return $this->belongsTo(Game::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function structures()
+    {
+        return $this->belongsToMany(Structure::class, 'world_structure')->withPivot(
+            array('name', 'description', 'alt_description', 'position_y', 'position_x')
+        );
     }
 
     /**

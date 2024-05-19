@@ -5,6 +5,7 @@ namespace App\Models\Worlds;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property string name
@@ -30,4 +31,12 @@ class Structure extends Model
         'size_x',
         'biome_id',
     );
+
+    /**
+     * @return BelongsToMany
+     */
+    public function worlds()
+    {
+        return $this->belongsToMany(World::class, 'world_structure');
+    }
 }
