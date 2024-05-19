@@ -4,6 +4,9 @@
 namespace App\Helpers;
 
 
+use App\Models\Names\Name;
+use App\Models\Worlds\Structure;
+use App\Models\Worlds\World;
 use Illuminate\Support\Facades\File;
 
 class MapHelper
@@ -211,5 +214,44 @@ class MapHelper
         $imageContent = ob_get_clean();
         imagedestroy($image);
         return $imageContent;
+    }
+
+    /**
+     * @param null $structures
+     */
+    public function createStructures($structures = null)
+    {
+        if(!$structures) {
+            $structures = Structure::all();
+        }
+        $worldId = $this->worldId;
+        $world = World::find($worldId);
+        foreach($structures as $structure) {
+            $frequency = $structure->frequency;
+            for($i = 0; $i < $frequency; $i++) {
+                $newStructure = array();
+                $name = Name::random(array('city' => 1));
+                $newStructure['name'] = $name;
+                $position = $this->positionStructure($structure);
+                $newStructure['position_y'] = $position['y'];
+                $newStructure['position_x'] = $position['x'];
+                $world->structures()->attach($structure->id, $newStructure);
+            }
+        }
+    }
+
+    /**
+     * @param Structure $structure
+     * @return int[]
+     */
+    protected function positionStructure(Structure $structure) {
+        $result = array('y' => 0, 'x' => 0);
+        $rows = count($this->biomeMap);
+        if(0 != $rows) {
+            $cols = $rows;
+            $result['y'] = rand(0, $rows);
+            $result['x'] = rand(0, $cols);
+        }
+        return $result;
     }
 }

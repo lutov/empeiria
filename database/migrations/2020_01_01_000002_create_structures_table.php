@@ -21,6 +21,7 @@ class CreateStructuresTable extends Migration
             $table->string('slug', 256);
             $table->text('description')->nullable();
             $table->text('alt_description')->nullable();
+            $table->smallInteger('frequency')->unsigned();
             $table->smallInteger('start_y')->unsigned();
             $table->smallInteger('start_x')->unsigned();
             $table->smallInteger('size_y')->unsigned();
@@ -38,6 +39,6 @@ class CreateStructuresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('structure');
+        Schema::dropIfExists('structures');
     }
 }

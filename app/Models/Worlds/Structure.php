@@ -25,6 +25,7 @@ class Structure extends Model
         'slug',
         'description',
         'alt_description',
+        'frequency',
         'start_y',
         'start_x',
         'size_y',
