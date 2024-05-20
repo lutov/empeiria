@@ -24,8 +24,11 @@
         $(function() {
             const mapWidth = 1200;
             const mapHeight = 1200;
+            const tileSize = 6;
             const map = document.getElementById("canvas");
             const context = map.getContext('2d');
+
+            let structures = [];
 
             let mapImage = new Image();
             mapImage.src = '/img/worlds/{{ $world->id }}/map.png';
@@ -38,6 +41,9 @@
             rulersImage.onload = function() {
                 context.drawImage(rulersImage, 0, 0);
             }
+
+            let structureImage = new Image();
+            structureImage.src = '/img/map/structures.png';
 
             let playerSquadImageWidth = 64;
             let playerSquadImageHeight = 64;
@@ -83,7 +89,19 @@
                         x = newX;
                         y = newY;
 
-                        render(x, y);
+                        $.ajax({
+                            url: '/api/worlds/{{ $world->id }}/structures',
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function (result) {
+                                //console.log(result);
+                                structures = result;
+
+                                render(x, y);
+                            }
+                        });
                     }
                 });
             }
@@ -92,6 +110,18 @@
             {
                 context.drawImage(mapImage, 0, 0);
                 context.drawImage(rulersImage, 0, 0);
+
+                $(structures).each(function(index, element) {
+                    let sx = element.start_x;
+                    let sy = element.start_y;
+                    let sw = element.size_x;
+                    let sh = element.size_y;
+                    let dx = element.pivot.position_x;
+                    let dy = element.pivot.position_y;
+                    let dw = element.size_x;
+                    let dh = element.size_y;
+                    context.drawImage(structureImage, sx, sy, sw, sh, (dx * tileSize), (dy * tileSize), dw, dh);
+                });
 
                 renderPath(movePath);
 

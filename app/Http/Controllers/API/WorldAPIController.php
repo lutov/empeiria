@@ -244,4 +244,16 @@ class WorldAPIController extends APIController
         return $result;
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return mixed
+     */
+    public function structures(Request $request, int $id)
+    {
+        $world = World::find($id);
+        $structures = $world->structures;
+        return $structures;
+    }
+
 }
