@@ -21,6 +21,8 @@ class MapHelper
     public array $mask;
     public HeightMapHelper $heightMap;
     public array $biomeMap;
+    public array $biomeArray;
+    public array $offLimit;
     public $image;
 
     /**
@@ -46,6 +48,16 @@ class MapHelper
         $this->size = $size;
         $this->tileSize = $tileSize;
         $this->scale = $scale;
+        $this->offLimit = array();
+
+        /*
+        $rightOffLimit = $size - 90;
+        for($iy = 0; $iy < $size; $iy++) {
+            for($ix = $rightOffLimit; $ix < $size; $ix++) {
+                $this->offLimit[$iy][$ix] = 0;
+            }
+        }
+        */
     }
 
     /**
@@ -96,12 +108,16 @@ class MapHelper
         $map = $this->noiseMap;
         $heightMap = $this->heightMap;
         $biomeMap = array();
+        $biomeArray = array();
         for ($iy = 0; $iy < ($size * $scale) / $tileSize; $iy++) {
             for ($ix = 0; $ix < ($size * $scale) / $tileSize; $ix++) {
-                $biomeMap[$iy][$ix] = BiomeHelper::getIdByTileHeight($map[$iy][$ix], $heightMap);
+                $biomeId = BiomeHelper::getIdByTileHeight($map[$iy][$ix], $heightMap);
+                $biomeMap[$iy][$ix] = $biomeId;
+                $biomeArray[$biomeId][] = array('y' => $iy, 'x' => $ix);
             }
         }
         $this->biomeMap = $biomeMap;
+        $this->biomeArray = $biomeArray;
         return $biomeMap;
     }
 
@@ -245,13 +261,40 @@ class MapHelper
      * @return int[]
      */
     protected function positionStructure(Structure $structure) {
-        $result = array('y' => 0, 'x' => 0);
-        $rows = count($this->biomeMap);
-        if(0 != $rows) {
-            $cols = $rows;
-            $result['y'] = rand(0, $rows);
-            $result['x'] = rand(0, $cols);
+        $position = array('y' => 0, 'x' => 0);
+        $biomeArray = $this->biomeArray;
+        $structureId = $structure->id;
+        $structureBiomes = $structure->biomes;
+        $structureHeight = $structure->size_y;
+        $structureWidth = $structure->size_x;
+        $offLimit = $this->offLimit;
+        $newOffLimit = array();
+        if(count($biomeArray)) {
+            $bid = array_rand($structureBiomes);
+            $biomeId = $structureBiomes[$bid];
+            if(isset($biomeArray[$biomeId]) && count($biomeArray[$biomeId])) {
+                $pid = array_rand($biomeArray[$biomeId]);
+                $p = $biomeArray[$biomeId][$pid];
+                $py = $p['y'];
+                $px = $p['x'];
+                // TODO maybe overcomplicated
+                for($sy = 0; $sy < $structureHeight; $sy++) {
+                    for($sx = 0; $sx < $structureWidth; $sx++) {
+                        if(!isset($offLimit[$py + $sy][$px + $sy])) {
+                            $newOffLimit[$py + $sy][$px + $sy] = $structureId;
+                        } else {
+                            return $this->positionStructure($structure);
+                        }
+                    }
+                }
+                $position = $p;
+            }
         }
-        return $result;
+        foreach($newOffLimit as $row => $value) {
+            foreach($value as $col => $val) {
+                $this->offLimit[$row][$col] = $val;
+            }
+        }
+        return $position;
     }
 }

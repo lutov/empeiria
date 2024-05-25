@@ -20,7 +20,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 5,
                 'size_y' => 90,
                 'size_x' => 90,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Capital Fortress',
@@ -32,7 +32,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 100,
                 'size_y' => 90,
                 'size_x' => 90,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Dark Capital',
@@ -44,7 +44,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 195,
                 'size_y' => 90,
                 'size_x' => 90,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Palace City',
@@ -56,7 +56,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 290,
                 'size_y' => 60,
                 'size_x' => 62,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Stronghold',
@@ -68,7 +68,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 359,
                 'size_y' => 60,
                 'size_x' => 60,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Dark City',
@@ -80,7 +80,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 425,
                 'size_y' => 60,
                 'size_x' => 60,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Village',
@@ -92,7 +92,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 290,
                 'size_y' => 30,
                 'size_x' => 62,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13, 14),
             ),
             array(
                 'name' => 'Cottage Village',
@@ -104,7 +104,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 359,
                 'size_y' => 30,
                 'size_x' => 60,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Desert Village',
@@ -116,7 +116,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 426,
                 'size_y' => 31,
                 'size_x' => 56,
-                'biome_id' => 1,
+                'biomes' => array(5, 6, 7),
             ),
             array(
                 'name' => 'Mountain Tile',
@@ -128,7 +128,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 490,
                 'size_y' => 64,
                 'size_x' => 64,
-                'biome_id' => 1,
+                'biomes' => array(),
             ),
             array(
                 'name' => 'Mountain',
@@ -140,7 +140,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 560,
                 'size_y' => 64,
                 'size_x' => 64,
-                'biome_id' => 1,
+                'biomes' => array(14, 15),
             ),
             array(
                 'name' => 'Dormant Volcano',
@@ -152,7 +152,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 630,
                 'size_y' => 60,
                 'size_x' => 64,
-                'biome_id' => 1,
+                'biomes' => array(14, 15),
             ),
             array(
                 'name' => 'Erupting Volcano',
@@ -164,7 +164,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 699,
                 'size_y' => 60,
                 'size_x' => 64,
-                'biome_id' => 1,
+                'biomes' => array(14, 15),
             ),
             array(
                 'name' => 'Cabin',
@@ -176,7 +176,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 494,
                 'size_y' => 17,
                 'size_x' => 21,
-                'biome_id' => 1,
+                'biomes' => array(10, 11, 12, 13),
             ),
             array(
                 'name' => 'Tent',
@@ -188,7 +188,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 517,
                 'size_y' => 17,
                 'size_x' => 23,
-                'biome_id' => 1,
+                'biomes' => array(5, 6, 7, 8),
             ),
             array(
                 'name' => 'Farm',
@@ -200,7 +200,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 559,
                 'size_y' => 29,
                 'size_x' => 30,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Mansion',
@@ -212,7 +212,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 593,
                 'size_y' => 29,
                 'size_x' => 31,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Fort',
@@ -224,7 +224,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 629,
                 'size_y' => 29,
                 'size_x' => 28,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Crypt',
@@ -236,7 +236,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 664,
                 'size_y' => 31,
                 'size_x' => 29,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Ziggurat',
@@ -248,7 +248,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 698,
                 'size_y' => 28,
                 'size_x' => 30,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Desert House',
@@ -260,7 +260,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 734,
                 'size_y' => 27,
                 'size_x' => 28,
-                'biome_id' => 1,
+                'biomes' => array(6, 7, 8),
             ),
             array(
                 'name' => 'Tower',
@@ -272,7 +272,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 767,
                 'size_y' => 58,
                 'size_x' => 29,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Watchtower',
@@ -284,7 +284,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 799,
                 'size_y' => 59,
                 'size_x' => 29,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Hole',
@@ -296,7 +296,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 767,
                 'size_y' => 26,
                 'size_x' => 29,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Pond',
@@ -308,7 +308,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 796,
                 'size_y' => 26,
                 'size_x' => 32,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Bush',
@@ -320,7 +320,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 838,
                 'size_y' => 16,
                 'size_x' => 14,
-                'biome_id' => 1,
+                'biomes' => array(10),
             ),
             array(
                 'name' => 'Bushes',
@@ -332,7 +332,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 862,
                 'size_y' => 27,
                 'size_x' => 29,
-                'biome_id' => 1,
+                'biomes' => array(10),
             ),
             array(
                 'name' => 'Tree',
@@ -344,7 +344,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 892,
                 'size_y' => 32,
                 'size_x' => 32,
-                'biome_id' => 1,
+                'biomes' => array(11),
             ),
             array(
                 'name' => 'Rock',
@@ -356,7 +356,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 930,
                 'size_y' => 21,
                 'size_x' => 22,
-                'biome_id' => 1,
+                'biomes' => array(12),
             ),
             array(
                 'name' => 'Rocks',
@@ -368,7 +368,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 959,
                 'size_y' => 31,
                 'size_x' => 32,
-                'biome_id' => 1,
+                'biomes' => array(12),
             ),
             array(
                 'name' => 'Reinforced Sand Mine',
@@ -380,7 +380,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 828,
                 'size_y' => 30,
                 'size_x' => 32,
-                'biome_id' => 1,
+                'biomes' => array(6, 7),
             ),
             array(
                 'name' => 'Sand Mine',
@@ -392,7 +392,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 860,
                 'size_y' => 31,
                 'size_x' => 32,
-                'biome_id' => 1,
+                'biomes' => array(6, 7),
             ),
             array(
                 'name' => 'Reinforced Stone Mine',
@@ -404,7 +404,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 893,
                 'size_y' => 33,
                 'size_x' => 31,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
                 'name' => 'Stone Mine',
@@ -416,7 +416,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 924,
                 'size_y' => 31,
                 'size_x' => 31,
-                'biome_id' => 1,
+                'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
         );
         foreach ($structures as $structure) {

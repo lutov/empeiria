@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @property int id
  * @property string name
- * @property int height
- * @property string color
+ * @property string slug
+ * @property string description
+ * @property array biomes
+ * @property int size_y
+ * @property int size_x
  *
  * @method static create(array $biome)
  * @method static find(int $id)
@@ -30,8 +34,11 @@ class Structure extends Model
         'start_x',
         'size_y',
         'size_x',
-        'biome_id',
+        'biomes',
     );
+    protected $casts = [
+        'biomes' => 'array',
+    ];
 
     /**
      * @return BelongsToMany

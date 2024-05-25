@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Worlds\Biome;
 use Database\Seeders\StructureSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -26,7 +25,7 @@ class CreateStructuresTable extends Migration
             $table->smallInteger('start_x')->unsigned();
             $table->smallInteger('size_y')->unsigned();
             $table->smallInteger('size_x')->unsigned();
-            $table->foreignIdFor(Biome::class)->unsigned();
+            $table->json('biomes');
         });
         $seeder = new StructureSeeder();
         $seeder->run();
