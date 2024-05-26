@@ -15,6 +15,7 @@ class DemoController extends Controller
      */
     public function index(Request $request)
     {
+        // phpinfo(); dd();
         $worldId = 4;
         $seed = 'buhurt';
         $octaves = array(3, 6, 12, 24);
