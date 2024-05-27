@@ -104,7 +104,15 @@ class MapHelper
             for ($ix = 0; $ix < ($size * $scale) / $tileSize; $ix++) {
                 $biomeId = BiomeHelper::getIdByTileHeight($map[$iy][$ix], $heightMap);
                 $biomeMap[$iy][$ix] = $biomeId;
-                $biomeArray[$biomeId][] = array('y' => $iy, 'x' => $ix);
+
+                for($ty = 0; $ty < $tileSize; $ty++) {
+                    for($tx = 0; $tx < $tileSize; $tx++) {
+                        $biomeArray[$biomeId][] = array(
+                            'y' => $iy + $ty,
+                            'x' => $ix + $tx
+                        );
+                    }
+                }
             }
         }
         $this->biomeMap = $biomeMap;
@@ -240,9 +248,11 @@ class MapHelper
                 $name = Name::random(array('city' => 1));
                 $newStructure['name'] = $name;
                 $position = $this->positionStructure($structure);
-                $newStructure['position_y'] = $position['y'];
-                $newStructure['position_x'] = $position['x'];
-                $world->structures()->attach($structure->id, $newStructure);
+                if($position) {
+                    $newStructure['position_y'] = $position['y'];
+                    $newStructure['position_x'] = $position['x'];
+                    $world->structures()->attach($structure->id, $newStructure);
+                }
             }
         }
     }
@@ -256,7 +266,7 @@ class MapHelper
         $biomeArray = $this->biomeArray;
         $structureMap = $this->structureMap;
         $structureBiomes = $structure->biomes;
-        $mapSize = $this->size * $this->scale;
+        $mapSize = (int) $this->size * $this->scale;
         if(count($biomeArray)) {
             $bid = array_rand($structureBiomes);
             $biomeId = $structureBiomes[$bid];
@@ -268,9 +278,23 @@ class MapHelper
                 $size_x = $structure->size_x;
                 for($sy = 0; $sy < $size_y; $sy++) {
                     for($sx = 0; $sx < $size_x; $sx++) {
+                        $pz = $structure->z_index;
                         $py = $position['y'] + $sy;
                         $px = $position['x'] + $sx;
-                        $structureMap[$structure->z_index][$py][$px] = $structure->id;
+
+                        /*
+                        $isPointEmpty = !isset($structureMap[$pz][$py][$px]);
+                        $isInsideBoundaries = (($py < ($mapSize - 15)) && ($px < ($mapSize - 15)));
+                        if($isPointEmpty) {
+                            $structureMap[$pz][$py][$px] = $structure->id;
+                        } else {
+                            return null;
+                            //return $this->positionStructure($structure);
+                        }
+                        */
+
+                        $structureMap[$pz][$py][$px] = $structure->id;
+
                     }
                 }
             }
