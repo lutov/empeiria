@@ -20,6 +20,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 5,
                 'size_y' => 90,
                 'size_x' => 90,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -32,6 +33,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 100,
                 'size_y' => 90,
                 'size_x' => 90,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -44,6 +46,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 195,
                 'size_y' => 90,
                 'size_x' => 90,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -56,6 +59,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 290,
                 'size_y' => 60,
                 'size_x' => 62,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -68,6 +72,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 359,
                 'size_y' => 60,
                 'size_x' => 60,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -80,6 +85,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 425,
                 'size_y' => 60,
                 'size_x' => 60,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -92,6 +98,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 290,
                 'size_y' => 30,
                 'size_x' => 62,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13, 14),
             ),
             array(
@@ -104,6 +111,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 359,
                 'size_y' => 30,
                 'size_x' => 60,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -116,6 +124,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 426,
                 'size_y' => 31,
                 'size_x' => 56,
+                'z_index' => 1,
                 'biomes' => array(5, 6, 7),
             ),
             array(
@@ -128,6 +137,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 490,
                 'size_y' => 64,
                 'size_x' => 64,
+                'z_index' => 0,
                 'biomes' => array(),
             ),
             array(
@@ -140,6 +150,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 560,
                 'size_y' => 64,
                 'size_x' => 64,
+                'z_index' => 0,
                 'biomes' => array(14, 15),
             ),
             array(
@@ -152,6 +163,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 630,
                 'size_y' => 60,
                 'size_x' => 64,
+                'z_index' => 0,
                 'biomes' => array(14, 15),
             ),
             array(
@@ -164,6 +176,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 699,
                 'size_y' => 60,
                 'size_x' => 64,
+                'z_index' => 0,
                 'biomes' => array(14, 15),
             ),
             array(
@@ -176,6 +189,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 494,
                 'size_y' => 17,
                 'size_x' => 21,
+                'z_index' => 1,
                 'biomes' => array(10, 11, 12, 13),
             ),
             array(
@@ -188,6 +202,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 517,
                 'size_y' => 17,
                 'size_x' => 23,
+                'z_index' => 1,
                 'biomes' => array(5, 6, 7, 8),
             ),
             array(
@@ -200,6 +215,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 559,
                 'size_y' => 29,
                 'size_x' => 30,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -212,6 +228,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 593,
                 'size_y' => 29,
                 'size_x' => 31,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -224,6 +241,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 629,
                 'size_y' => 29,
                 'size_x' => 28,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -236,6 +254,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 664,
                 'size_y' => 31,
                 'size_x' => 29,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -248,6 +267,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 698,
                 'size_y' => 28,
                 'size_x' => 30,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -260,6 +280,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 734,
                 'size_y' => 27,
                 'size_x' => 28,
+                'z_index' => 1,
                 'biomes' => array(6, 7, 8),
             ),
             array(
@@ -272,6 +293,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 767,
                 'size_y' => 58,
                 'size_x' => 29,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -284,6 +306,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 799,
                 'size_y' => 59,
                 'size_x' => 29,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -296,6 +319,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 767,
                 'size_y' => 26,
                 'size_x' => 29,
+                'z_index' => 0,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -308,6 +332,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 796,
                 'size_y' => 26,
                 'size_x' => 32,
+                'z_index' => 0,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -320,6 +345,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 838,
                 'size_y' => 16,
                 'size_x' => 14,
+                'z_index' => 0,
                 'biomes' => array(10),
             ),
             array(
@@ -332,6 +358,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 862,
                 'size_y' => 27,
                 'size_x' => 29,
+                'z_index' => 0,
                 'biomes' => array(10),
             ),
             array(
@@ -344,6 +371,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 892,
                 'size_y' => 32,
                 'size_x' => 32,
+                'z_index' => 2,
                 'biomes' => array(11),
             ),
             array(
@@ -356,6 +384,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 930,
                 'size_y' => 21,
                 'size_x' => 22,
+                'z_index' => 0,
                 'biomes' => array(12),
             ),
             array(
@@ -368,6 +397,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 959,
                 'size_y' => 31,
                 'size_x' => 32,
+                'z_index' => 0,
                 'biomes' => array(12),
             ),
             array(
@@ -380,6 +410,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 828,
                 'size_y' => 30,
                 'size_x' => 32,
+                'z_index' => 1,
                 'biomes' => array(6, 7),
             ),
             array(
@@ -392,6 +423,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 860,
                 'size_y' => 31,
                 'size_x' => 32,
+                'z_index' => 1,
                 'biomes' => array(6, 7),
             ),
             array(
@@ -404,6 +436,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 893,
                 'size_y' => 33,
                 'size_x' => 31,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
             array(
@@ -416,6 +449,7 @@ class StructureSeeder extends Seeder
                 'start_x' => 924,
                 'size_y' => 31,
                 'size_x' => 31,
+                'z_index' => 1,
                 'biomes' => array(8, 9, 10, 11, 12, 13),
             ),
         );

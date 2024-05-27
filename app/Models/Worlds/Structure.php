@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array biomes
  * @property int size_y
  * @property int size_x
+ * @property int z_index
  *
  * @method static create(array $biome)
  * @method static find(int $id)
@@ -34,6 +35,7 @@ class Structure extends Model
         'start_x',
         'size_y',
         'size_x',
+        'z_index',
         'biomes',
     );
     protected $casts = [

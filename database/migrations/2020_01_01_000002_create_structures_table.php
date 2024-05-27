@@ -25,6 +25,7 @@ class CreateStructuresTable extends Migration
             $table->smallInteger('start_x')->unsigned();
             $table->smallInteger('size_y')->unsigned();
             $table->smallInteger('size_x')->unsigned();
+            $table->smallInteger('z_index')->unsigned();
             $table->json('biomes');
         });
         $seeder = new StructureSeeder();
