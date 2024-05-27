@@ -252,7 +252,7 @@ class WorldAPIController extends APIController
     public function structures(Request $request, int $id)
     {
         $world = World::find($id);
-        $structures = $world->structures;
+        $structures = $world->structures()->orderBy('z_index')->get();
         return $structures;
     }
 

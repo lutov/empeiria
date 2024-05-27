@@ -22,6 +22,7 @@ class MapHelper
     public HeightMapHelper $heightMap;
     public array $biomeMap;
     public array $biomeArray;
+    public array $structureMap;
     public $image;
 
     /**
@@ -47,6 +48,7 @@ class MapHelper
         $this->size = $size;
         $this->tileSize = $tileSize;
         $this->scale = $scale;
+        $this->structureMap = array();
     }
 
     /**
@@ -252,15 +254,28 @@ class MapHelper
     protected function positionStructure(Structure $structure) {
         $position = array('y' => 0, 'x' => 0);
         $biomeArray = $this->biomeArray;
+        $structureMap = $this->structureMap;
         $structureBiomes = $structure->biomes;
+        $mapSize = $this->size * $this->scale;
         if(count($biomeArray)) {
             $bid = array_rand($structureBiomes);
             $biomeId = $structureBiomes[$bid];
             if(isset($biomeArray[$biomeId]) && count($biomeArray[$biomeId])) {
                 $pid = array_rand($biomeArray[$biomeId]);
                 $position = $biomeArray[$biomeId][$pid];
+
+                $size_y = $structure->size_y;
+                $size_x = $structure->size_x;
+                for($sy = 0; $sy < $size_y; $sy++) {
+                    for($sx = 0; $sx < $size_x; $sx++) {
+                        $py = $position['y'] + $sy;
+                        $px = $position['x'] + $sx;
+                        $structureMap[$structure->z_index][$py][$px] = $structure->id;
+                    }
+                }
             }
         }
+        $this->structureMap = $structureMap;
         return $position;
     }
 }
