@@ -104,15 +104,7 @@ class MapHelper
             for ($ix = 0; $ix < ($size * $scale) / $tileSize; $ix++) {
                 $biomeId = BiomeHelper::getIdByTileHeight($map[$iy][$ix], $heightMap);
                 $biomeMap[$iy][$ix] = $biomeId;
-
-                for($ty = 0; $ty < $tileSize; $ty++) {
-                    for($tx = 0; $tx < $tileSize; $tx++) {
-                        $biomeArray[$biomeId][] = array(
-                            'y' => $iy + $ty,
-                            'x' => $ix + $tx
-                        );
-                    }
-                }
+                $biomeArray[$biomeId][] = array('y' => $iy, 'x' => $ix);
             }
         }
         $this->biomeMap = $biomeMap;
