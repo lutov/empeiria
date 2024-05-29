@@ -8,12 +8,10 @@
 
 namespace App\Models\Worlds;
 
-use App\Models\Factions\Faction;
 use App\Models\Games\Game;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
@@ -22,7 +20,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $name
  * @property string $description
  * @property string $seed
- * @property int $octaves
+ * @property array $octaves
+ * @property int $size
+ * @property int $tile_size
+ * @property int $scale
  *
  * @method static find(int $id)
  * @method static where(string $string, $id)
@@ -30,9 +31,26 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class World extends Model
 {
     protected static string $type = 'world';
-    protected $fillable = ['user_id', 'name', 'description', 'picture_id'];
+    protected $fillable = [
+        'user_id',
+        'game_id',
+        'name',
+        'description',
+        'seed',
+        'octaves',
+        'size',
+        'tile_size',
+        'scale',
+    ];
     //protected $with = ['map'];
-    protected $visible = ['id', 'name', 'map'];
+    protected $visible = [
+        'id',
+        'name',
+        'seed'
+    ];
+    protected $casts = [
+        'octaves' => 'array',
+    ];
 
     /**
      * @return BelongsTo
@@ -51,29 +69,4 @@ class World extends Model
             array('name', 'description', 'alt_description', 'position_y', 'position_x')
         );
     }
-
-    /**
-     * @return HasOne
-     */
-    public function map()
-    {
-        return $this->hasOne(Map::class);
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function faction()
-    {
-        return $this->hasOne(Faction::class);
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function history()
-    {
-        return $this->hasOne('App\Models\History');
-    }
-
 }

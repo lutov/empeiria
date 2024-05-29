@@ -25,6 +25,9 @@
                     $('#name').val(result);
                     $('#seed').val(result);
                     $('#octaves').val('3, 6, 12, 24');
+                    $('#size').val(100);
+                    $('#tile_size').val(6);
+                    $('#scale').val(12);
                 }
             });
         }
@@ -32,14 +35,20 @@
             let name = $('#name').val();
             let seed = $('#seed').val();
             let octaves = $('#octaves').val();
+            let size = $('#size').val();
+            let tile_size = $('#tile_size').val();
+            let scale = $('#scale').val();
             $.ajax({
-                url: '/api/maps/preview',
+                url: '/api/worlds/preview',
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
                     name: name,
                     seed: seed,
-                    octaves: octaves
+                    octaves: octaves,
+                    size: size,
+                    tile_size: tile_size,
+                    scale: scale
                 },
                 success: function (result) {
                     let preview = 'data:image/png;base64,' + result;
@@ -51,6 +60,9 @@
             let name = $('#name').val();
             let seed = $('#seed').val();
             let octaves = $('#octaves').val();
+            let size = $('#size').val();
+            let tile_size = $('#tile_size').val();
+            let scale = $('#scale').val();
             $.ajax({
                 url: '/api/worlds',
                 type: 'POST',
@@ -59,7 +71,10 @@
                     gameId: {{ $gameId }},
                     name: name,
                     seed: seed,
-                    octaves: octaves
+                    octaves: octaves,
+                    size: size,
+                    tile_size: tile_size,
+                    scale: scale
                 },
                 success: function(result) {
                     game = result;
@@ -98,10 +113,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <input type="text" id="seed" class="form-control" placeholder="Seed" aria-label="Seed">
+                        <input type="text" id="octaves" class="form-control" placeholder="Octaves" aria-label="Octaves">
+                        <input type="text" id="size" class="form-control" placeholder="Size" aria-label="Size">
+                        <input type="text" id="tile_size" class="form-control" placeholder="Tile Size" aria-label="Tile Size">
+                        <input type="text" id="scale" class="form-control" placeholder="Scale" aria-label="Scale">
                     </div>
                 </div>
                 <div class="col">
-                    <input type="text" id="octaves" class="form-control" placeholder="Octaves" aria-label="Octaves">
                 </div>
             </div>
 

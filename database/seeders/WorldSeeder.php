@@ -25,7 +25,10 @@ class WorldSeeder extends Seeder
         $world->name = Name::random(['world' => 1]);
         $world->description = '';
         $world->seed = 'seed';
-        $world->octaves = 6;
+        $world->octaves = array(3, 6, 12, 24);
+        $world->size = 100;
+        $world->tile_size = 6;
+        $world->scale = 12;
         $world->save();
     }
 }

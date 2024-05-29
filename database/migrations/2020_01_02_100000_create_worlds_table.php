@@ -24,7 +24,10 @@ class CreateWorldsTable extends Migration
             $table->string('name', 256);
             $table->text('description')->nullable();
             $table->string('seed', 256);
-            $table->smallInteger('octaves')->unsigned();
+            $table->json('octaves');
+            $table->smallInteger('size')->unsigned();
+            $table->smallInteger('tile_size')->unsigned();
+            $table->smallInteger('scale')->unsigned();
             $table->timestamps();
         });
         $seeder = new WorldSeeder();
