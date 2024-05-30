@@ -12,7 +12,8 @@
     <script>
         const endpoint = '/api/games';
         $(function() {
-            //
+            $('#mapPreviewLoader').hide();
+            $('#createWorldLoader').hide();
         });
         function getRandomName() {
             $.ajax({
@@ -31,7 +32,7 @@
                 }
             });
         }
-        function getMap() {
+        function getMapPreview() {
             let name = $('#name').val();
             let seed = $('#seed').val();
             let octaves = $('#octaves').val();
@@ -50,7 +51,11 @@
                     tile_size: tile_size,
                     scale: scale
                 },
+                beforeSend: function() {
+                    $("#mapPreviewLoader").show();
+                },
                 success: function (result) {
+                    $('#mapPreviewLoader').hide();
                     let preview = 'data:image/png;base64,' + result;
                     $('#preview').attr('src', preview);
                 }
@@ -76,9 +81,14 @@
                     tile_size: tile_size,
                     scale: scale
                 },
+                beforeSend: function() {
+                    $("#createWorldLoader").show();
+                },
                 success: function(result) {
-                    game = result;
-                    $(location).attr('href', '/games/' + game.id + '/worlds');
+                    $("#createWorldLoader").hide();
+                    let world = result;
+                    $(location).attr('href', '/games/{{ $gameId }}/worlds/' + world.id);
+
                 }
             });
         }
@@ -105,28 +115,49 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control"  id="name" placeholder="Name" aria-label="Name" autocomplete="off">
                 <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
-                <button class="btn btn-outline-secondary" type="button" onclick="getMap()">Preview</button>
-                <button class="btn btn-outline-secondary" type="button" onclick="createWorld()">Create</button>
+                <button class="btn btn-outline-secondary" type="button" onclick="getMapPreview()">
+                    <span id="mapPreviewLoader" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    Preview
+                </button>
+                <button class="btn btn-outline-secondary" type="button" onclick="createWorld()">
+                    <span id="createWorldLoader" class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    Create
+                </button>
             </div>
 
             <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
-                        <input type="text" id="seed" class="form-control" placeholder="Seed" aria-label="Seed">
-                        <input type="text" id="octaves" class="form-control" placeholder="Octaves" aria-label="Octaves">
-                        <input type="text" id="size" class="form-control" placeholder="Size" aria-label="Size">
-                        <input type="text" id="tile_size" class="form-control" placeholder="Tile Size" aria-label="Tile Size">
-                        <input type="text" id="scale" class="form-control" placeholder="Scale" aria-label="Scale">
+                        <div class="form-floating">
+                            <input type="text" id="seed" class="form-control" placeholder="Seed" aria-label="Seed">
+                            <label for="seed">Seed</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" id="octaves" class="form-control" placeholder="Octaves"
+                                   aria-label="Octaves">
+                            <label for="octaves">Octaves</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" id="size" class="form-control" placeholder="Size" aria-label="Size">
+                            <label for="size">Size</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" id="tile_size" class="form-control" placeholder="Tile Size"
+                                   aria-label="Tile Size">
+                            <label for="tile_size">Tile Size</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" id="scale" class="form-control" placeholder="Scale" aria-label="Scale">
+                            <label for="scale">Scale</label>
+                        </div>
                     </div>
                 </div>
                 <div class="col">
+                    <div class="text-center mb-3">
+                        <img id="preview" src="" alt="">
+                    </div>
                 </div>
             </div>
-
-            <div class="text-center">
-                <img id="preview" src="" alt="">
-            </div>
         </div>
-
     </div>
 @endsection

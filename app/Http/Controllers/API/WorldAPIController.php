@@ -62,7 +62,12 @@ class WorldAPIController extends APIController
         $name = $request->get('name');
         $seed = $request->get('seed');
         $octaves = $request->get('octaves');
-        if(is_string($octaves)) {$octaves = explode(', ', $octaves);}
+        if(is_string($octaves)) {
+            $octaves = explode(', ', $octaves);
+            foreach($octaves as $key => $value) {
+                $octaves[$key] = (int) $value;
+            }
+        }
         $size = $request->get('size');
         $tileSize = $request->get('tile_size');
         $scale = $request->get('scale');
