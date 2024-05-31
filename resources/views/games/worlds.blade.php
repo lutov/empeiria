@@ -24,11 +24,6 @@
                 },
                 success: function (result) {
                     $('#name').val(result);
-                    $('#seed').val(result);
-                    $('#octaves').val('3, 6, 12, 24');
-                    $('#size').val(100);
-                    $('#tile_size').val(6);
-                    $('#scale').val(12);
                 }
             });
         }
@@ -87,8 +82,9 @@
                 success: function(result) {
                     $("#createWorldLoader").hide();
                     let world = result;
-                    $(location).attr('href', '/games/{{ $gameId }}/worlds/' + world.id);
-
+                    if(world.id) {
+                        $(location).attr('href', '/games/{{ $gameId }}/worlds/' + world.id);
+                    }
                 }
             });
         }
@@ -103,7 +99,13 @@
                     <img src="/img/worlds/{{ $world->id }}/map.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ $world->name }}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">
+                            Seed: {{ $world->seed }}<br/>
+                            Octaves: {{ implode(', ', $world->octaves) }}<br/>
+                            Size: {{ $world->size }}<br/>
+                            Title Size: {{ $world->title_size }}<br/>
+                            Scale: {{ $world->scale }}<br/>
+                        </p>
                         <a href="/games/{{ $gameId }}/worlds/{{ $world->id }}" class="btn btn-primary">Play</a>
                     </div>
                 </div>
@@ -134,20 +136,22 @@
                         </div>
                         <div class="form-floating">
                             <input type="text" id="octaves" class="form-control" placeholder="Octaves"
-                                   aria-label="Octaves">
+                                   aria-label="Octaves" value="3, 6, 12, 24">
                             <label for="octaves">Octaves</label>
                         </div>
                         <div class="form-floating">
-                            <input type="text" id="size" class="form-control" placeholder="Size" aria-label="Size">
+                            <input type="text" id="size" class="form-control" placeholder="Size" aria-label="Size"
+                                   value="200">
                             <label for="size">Size</label>
                         </div>
                         <div class="form-floating">
                             <input type="text" id="tile_size" class="form-control" placeholder="Tile Size"
-                                   aria-label="Tile Size">
+                                   aria-label="Tile Size" value="2">
                             <label for="tile_size">Tile Size</label>
                         </div>
                         <div class="form-floating">
-                            <input type="text" id="scale" class="form-control" placeholder="Scale" aria-label="Scale">
+                            <input type="text" id="scale" class="form-control" placeholder="Scale" aria-label="Scale"
+                                   value="6">
                             <label for="scale">Scale</label>
                         </div>
                     </div>

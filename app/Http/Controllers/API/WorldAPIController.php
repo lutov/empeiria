@@ -34,9 +34,14 @@ class WorldAPIController extends APIController
         foreach($octaves as $key => $value) {
             $octaves[$key] = (int) $value;
         }
+        // hardcode preview
+        // $size = $request->get('size');
+        // $tileSize = $request->get('tile_size');
+        // $scale = $request->get('scale');
         $size = 200;
         $tileSize = 2;
-        $map = new MapHelper(1, $seed, $octaves, $size, $tileSize);
+        $scale = 1;
+        $map = new MapHelper(1, $seed, $octaves, $size, $tileSize, $scale);
         $preview = $map->getPreview();
         return base64_encode($preview);
     }
