@@ -114,6 +114,8 @@
         </div>
 
         <div id="">
+            <h2>New World</h2>
+
             <div class="input-group mb-3">
                 <input type="text" class="form-control"  id="name" placeholder="Name" aria-label="Name" autocomplete="off">
                 <button class="btn btn-outline-secondary" type="button" onclick="getRandomName()">Random</button>
@@ -141,17 +143,17 @@
                         </div>
                         <div class="form-floating">
                             <input type="text" id="size" class="form-control" placeholder="Size" aria-label="Size"
-                                   value="200">
+                                   value="100">
                             <label for="size">Size</label>
                         </div>
                         <div class="form-floating">
                             <input type="text" id="tile_size" class="form-control" placeholder="Tile Size"
-                                   aria-label="Tile Size" value="2">
+                                   aria-label="Tile Size" value="6">
                             <label for="tile_size">Tile Size</label>
                         </div>
                         <div class="form-floating">
                             <input type="text" id="scale" class="form-control" placeholder="Scale" aria-label="Scale"
-                                   value="6">
+                                   value="12">
                             <label for="scale">Scale</label>
                         </div>
                     </div>

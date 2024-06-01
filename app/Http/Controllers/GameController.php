@@ -13,6 +13,7 @@ use App\Models\Worlds\Biome;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -87,12 +88,16 @@ class GameController extends Controller
 
     /**
      * @param Request $request
-     * @return Factory|View
+     * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|RedirectResponse
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $games = Game::where('user_id', $user->id)->get();
+        if(count($games)) {
+            $game = $games->first();
+            return redirect()->route('worlds', ['gameId' => $game->id]);
+        }
         $data = array(
             'user' => $user,
             'games' => $games,
