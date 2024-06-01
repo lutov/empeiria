@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link href="/vendor/bootstrap/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
+        <link href="/vendor/fonts/rowdies/Rowdies-Regular.ttf" rel="stylesheet">
 
         <!-- Scripts -->
         <script src="/vendor/jquery/jquery-3.7.1.min.js"></script>
@@ -21,8 +22,8 @@
         <link href="/css/game.css" rel="stylesheet">
     </head>
     <body class="min-vh-100 pt-5 pb-5">
-        <header class="w-50 text-center m-auto mb-5">
-            <a href="/"><img src="/img/mainpage/logo_en.png" class="logo"></a>
+        <header class="w-50 text-center m-auto mb-3">
+            <a href="/games" class="logo rowdies-regular">Empeiria</a>
         </header>
 
         @section('sidebar')

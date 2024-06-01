@@ -10,6 +10,33 @@ body {
     background-clip: border-box;
 }
 
+/* FONTS */
+.rowdies-light {
+    font-family: "Rowdies", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.rowdies-regular {
+    font-family: "Rowdies", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.rowdies-bold {
+    font-family: "Rowdies", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+/* FONTS */
+
+/* LAYOUT */
  .logo {
-     max-height: 3em;
+     text-decoration: none !important;
+     color: white;
+     font-size: 3em;
  }
+    .logo:hover {
+        text-decoration: underline !important;
+    }
+/* LAYOUT */
