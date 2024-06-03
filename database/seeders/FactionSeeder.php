@@ -23,7 +23,7 @@ class FactionSeeder extends Seeder
         $faction->world_id = $world->id;
         $faction->name = Name::random(['faction' => 1]);
         $faction->description = '';
-        $faction->emblem_id = Emblem::random()->id;
+        $faction->emblem_id = 1;//Emblem::random()->id;
         $faction->save();
     }
 }

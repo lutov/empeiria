@@ -8,8 +8,11 @@
 
 namespace App\Models\Factions;
 
+use App\Models\Characters\Character;
+use App\Models\Squads\Squad;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Faction
@@ -26,8 +29,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Faction extends Model
 {
-    protected $with = [
-    ];
+    protected $with = [];
     protected $visible = [
         'id',
         'name',
@@ -40,11 +42,11 @@ class Faction extends Model
     ];
 
     /**
-     * Faction constructor.
+     * @return HasMany
      */
-    public function __construct()
+    public function squads()
     {
-        parent::__construct();
+        return $this->hasMany(Squad::class);
     }
 
     /**
@@ -52,6 +54,6 @@ class Faction extends Model
      */
     public function characters()
     {
-        return $this->belongsToMany('App\Models\Character', 'factions_characters', 'faction_id', 'character_id');
+        return $this->belongsToMany(Character::class, 'factions_characters', 'faction_id', 'character_id');
     }
 }
