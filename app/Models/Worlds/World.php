@@ -8,10 +8,12 @@
 
 namespace App\Models\Worlds;
 
+use App\Models\Factions\Faction;
 use App\Models\Games\Game;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -46,7 +48,8 @@ class World extends Model
     protected $visible = [
         'id',
         'name',
-        'seed'
+        'seed',
+        'factions'
     ];
     protected $casts = [
         'octaves' => 'array',
@@ -58,6 +61,14 @@ class World extends Model
     public function game()
     {
         return $this->belongsTo(Game::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function factions()
+    {
+        return $this->hasMany(Faction::class, 'world_id', 'id');
     }
 
     /**

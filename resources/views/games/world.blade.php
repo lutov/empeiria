@@ -11,10 +11,29 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
+
+            <div class="accordion accordion-flush" id="factions">
+
+                @foreach($world->factions as $key => $faction)
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faction_{{ $faction->id }}" aria-expanded="false" aria-controls="faction_{{ $faction->id }}">
+                            {{ $faction->name }}
+                        </button>
+                    </h2>
+                    <div id="faction_{{ $faction->id }}" class="accordion-collapse collapse" data-bs-parent="#factions">
+                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                    </div>
+                </div>
+                @endforeach
+
+            </div>
+
             <div class="mb-3">
                 Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
             </div>
             <a class="btn btn-outline-secondary" href="/games/{{ $gameId }}/worlds/{{ $world->id }}/characters">Create Main Character</a>
+
         </div>
     </div>
 @endsection
