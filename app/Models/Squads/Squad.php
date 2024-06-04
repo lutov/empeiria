@@ -8,10 +8,12 @@
 
 namespace App\Models\Squads;
 
+use App\Models\Characters\Character;
+use App\Models\Factions\Faction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Squad
@@ -30,16 +32,12 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Squad extends Model
 {
 
-    protected $with = [
-        'faction',
-        'banner',
-        'characters',
-    ];
+    protected $with = [];
     protected $visible = [
         'id',
         'name',
-        'banner',
-        'faction',
+        'banner_id',
+        'faction_id',
         'characters',
     ];
     protected $fillable = [
@@ -53,7 +51,7 @@ class Squad extends Model
      */
     public function characters()
     {
-        return $this->hasMany('App\Models\Characters\Character')->orderBy('squad_order');
+        return $this->hasMany(Character::class)->orderBy('squad_order');
     }
 
     /**
@@ -61,23 +59,14 @@ class Squad extends Model
      */
     public function faction()
     {
-        return $this->belongsTo('App\Models\Factions\Faction');
+        return $this->belongsTo(Faction::class);
     }
 
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
     public function banner()
     {
-        return $this->belongsTo(Banner::class);
+        return $this->hasOne(Banner::class);
     }
-
-    /**
-     * @return MorphOne
-     */
-    public function position()
-    {
-        return $this->morphOne('App\Models\Position', 'entity');
-    }
-
 }
