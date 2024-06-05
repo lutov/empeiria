@@ -22,6 +22,7 @@ class CreateFactionsTable extends Migration
             $table->string('name', 256);
             $table->text('description')->nullable();
             $table->foreignIdFor(Emblem::class)->unsigned()->default(1);
+            $table->boolean('player_faction')->default(false);
             $table->timestamps();
         });
         $seeder = new FactionSeeder();

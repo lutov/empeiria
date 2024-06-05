@@ -24,6 +24,7 @@ class FactionSeeder extends Seeder
         $faction->name = Name::random(['faction' => 1]);
         $faction->description = '';
         $faction->emblem_id = 1;//Emblem::random()->id;
+        $faction->player_faction = true;
         $faction->save();
     }
 }

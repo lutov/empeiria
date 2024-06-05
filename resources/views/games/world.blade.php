@@ -18,11 +18,32 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faction_{{ $faction->id }}" aria-expanded="false" aria-controls="faction_{{ $faction->id }}">
-                            {{ $faction->name }}
+                            <span @if($faction->player_faction) class="text-success" @endif>{{ $faction->name }}</span>
                         </button>
                     </h2>
                     <div id="faction_{{ $faction->id }}" class="accordion-collapse collapse" data-bs-parent="#factions">
-                        <div class="accordion-body">{{ $faction->description }}</div>
+                        <div class="accordion-body">
+                            {{ $faction->description }}
+
+                            <div class="accordion" id="accordionExample">
+                            @foreach($faction->squads as $squad)
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                {{ $squad->name }}
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body"></div>
+                                        </div>
+                                    </div>
+                            @endforeach
+                            </div>
+
+                            @if($faction->player_faction)
+                            <button class="btn btn-primary">Add Squad</button>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 @endforeach

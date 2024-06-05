@@ -19,10 +19,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @package App\Models\Factions
  *
  * @property int $id
- * @property int world_id
+ * @property int $world_id
  * @property string $name
- * @property string description
- * @property int emblem_id
+ * @property string $description
+ * @property int $emblem_id
+ * @property bool $player_faction
  *
  * @method static find(int $id)
  * @method static where(string $string, string $operator, string $id)
@@ -39,6 +40,7 @@ class Faction extends Model
         'name',
         'description',
         'emblem_id',
+        'player_faction',
     ];
 
     /**
