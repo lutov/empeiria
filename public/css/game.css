@@ -11,6 +11,11 @@ body {
 }
 
 /* FONTS */
+@font-face {
+    font-family: "Rowdies";
+    src: url('/vendor/fonts/rowdies/Rowdies-Regular.ttf');
+}
+
 .rowdies-light {
     font-family: "Rowdies", sans-serif;
     font-weight: 300;
