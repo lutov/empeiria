@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Factions\Faction;
 use App\Models\Names\Name;
-use App\Models\Squads\Banner;
 use App\Models\Squads\Squad;
-use App\Models\Worlds\World;
 use Illuminate\Database\Seeder;
 
 class SquadSeeder extends Seeder
@@ -25,5 +22,9 @@ class SquadSeeder extends Seeder
         $squad->description = '';
         $squad->banner_id = 1;
         $squad->save();
+
+        for($i = 1; $i < 4; $i++) {
+            $squad->characters()->attach($i, array('squad_order' => $i));
+        }
     }
 }

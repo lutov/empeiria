@@ -2,16 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Characters\Avatar;
 use App\Models\Characters\Character;
-use App\Models\Characters\Gender;
-use App\Models\Characters\Inventory;
-use App\Models\Characters\Qualities;
 use App\Models\Characters\Quality;
-use App\Models\Factions\Faction;
-use App\Models\Items\Item;
 use App\Models\Names\Name;
-use App\Models\Squads\Squad;
 use Illuminate\Database\Seeder;
 
 class DemoCharacterSeeder extends Seeder
@@ -41,11 +34,10 @@ class DemoCharacterSeeder extends Seeder
         $character->save();
 
         $qualities = Quality::all();
-        foreach($qualities as $quality) {
+        foreach ($qualities as $quality) {
             $character->qualities()->attach($quality->id, array('value' => rand(3, 10)));
         }
         $character->perks()->attach(array(1, 3, 5));
-
         /*
         $inventory = new Inventory();
         $inventory->character_id = $character->id;

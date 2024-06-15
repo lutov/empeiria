@@ -49,16 +49,16 @@
                                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
 
-                                                <ul>
+                                                <!--ul>
                                                     <li id="draggable" class="ui-state-highlight">Drag me down</li>
-                                                </ul>
+                                                </ul-->
 
                                                 <ul id="sortable">
-                                                    <li class="ui-state-default">Item 1</li>
-                                                    <li class="ui-state-default">Item 2</li>
-                                                    <li class="ui-state-default">Item 3</li>
-                                                    <li class="ui-state-default">Item 4</li>
-                                                    <li class="ui-state-default">Item 5</li>
+                                                    @foreach($squad->characters as $character)
+                                                    <li class="ui-state-default">
+                                                        {{ $character->nickname }}
+                                                    </li>
+                                                    @endforeach
                                                 </ul>
 
                                             </div>

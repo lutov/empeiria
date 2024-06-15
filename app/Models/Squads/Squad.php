@@ -12,6 +12,7 @@ use App\Models\Characters\Character;
 use App\Models\Factions\Faction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -47,11 +48,14 @@ class Squad extends Model
     ];
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
     public function characters()
     {
-        return $this->hasMany(Character::class)->orderBy('squad_order');
+        return $this->belongsToMany(Character::class, 'squad_character')
+            ->withPivot('squad_order')
+            ->orderBy('squad_order')
+        ;
     }
 
     /**
