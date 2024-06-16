@@ -7,6 +7,11 @@
     <script>
         $(function() {
             $( "#sortable" ).sortable({
+                cursor: "move",
+                update: function( event, ui ) {
+                    let sortedIDs = $( "#sortable" ).sortable( "toArray" );
+                    console.log(sortedIDs);
+                },
                 revert: true
             });
             $( "#draggable" ).draggable({
@@ -55,7 +60,7 @@
 
                                                 <ul id="sortable">
                                                     @foreach($squad->characters as $character)
-                                                    <li class="ui-state-default">
+                                                    <li class="ui-state-default" id="character_{{ $character->id }}">
                                                         {{ $character->nickname }}
                                                     </li>
                                                     @endforeach
