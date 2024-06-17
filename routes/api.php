@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('/{id}/characters', 'characters')->name('squad.characters');
             Route::post('/{id}/characters/attach', 'attachCharacters')->name('squad.attach.characters');
             Route::post('/{id}/characters/detach', 'detachCharacters')->name('squad.detach.characters');
+            Route::post('/{id}/characters/sort', 'sortCharacters')->name('squad.sort.characters');
         });
     });
 

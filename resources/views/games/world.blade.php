@@ -9,8 +9,20 @@
             $( "#sortable" ).sortable({
                 cursor: "move",
                 update: function( event, ui ) {
+                    let squadId = '';
                     let sortedIDs = $( "#sortable" ).sortable( "toArray" );
                     console.log(sortedIDs);
+                    $.ajax({
+                        url: '/api/squads/' + squadId + '/characters/sort',
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            sort: sortedIDs
+                        },
+                        success: function (result) {
+                            console.log(result);
+                        }
+                    });
                 },
                 revert: true
             });
