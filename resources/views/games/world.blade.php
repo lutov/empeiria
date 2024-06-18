@@ -9,15 +9,26 @@
             $( "#sortable" ).sortable({
                 cursor: "move",
                 update: function( event, ui ) {
-                    let squadId = '';
                     let sortedIDs = $( "#sortable" ).sortable( "toArray" );
-                    console.log(sortedIDs);
+                    //console.log(sortedIDs);
+
+                    let squadId = sortedIDs[0].split('-');
+                    squadId = squadId[0].split('_')[1];
+                    //console.log(squadId);
+
+                    let data = [];
+                    $(sortedIDs).each(function(key, value) {
+                        let characterId = value.split('-');
+                        characterId = characterId[1].split('_')[1];
+                        data.push(characterId);
+                    });
+
                     $.ajax({
                         url: '/api/squads/' + squadId + '/characters/sort',
                         type: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            sort: sortedIDs
+                            sort: data
                         },
                         success: function (result) {
                             console.log(result);
@@ -72,7 +83,7 @@
 
                                                 <ul id="sortable">
                                                     @foreach($squad->characters as $character)
-                                                    <li class="ui-state-default" id="character_{{ $character->id }}">
+                                                    <li class="ui-state-default" id="squad_{{ $squad->id }}-character_{{ $character->id }}">
                                                         {{ $character->nickname }}
                                                     </li>
                                                     @endforeach
