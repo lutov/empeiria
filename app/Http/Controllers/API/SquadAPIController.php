@@ -12,8 +12,6 @@ use Illuminate\Validation\ValidationException;
 class SquadAPIController extends APIController
 {
 
-    private $slug = 'squads';
-    private $model = Squad::class;
     private $rules = [
         'name' => ['required', 'string', 'max:255'],
     ];
@@ -32,7 +30,7 @@ class SquadAPIController extends APIController
     public function index()
     {
         $user = Auth::user();
-        return Squad::where('faction_id', '=', $user->world->faction->id)->get();
+        return Squad::where('faction_id', '=', $user->worlds->faction->id)->get();
     }
 
     /**
@@ -143,6 +141,23 @@ class SquadAPIController extends APIController
         $squad = Squad::find($id);
         $squad->characters()->detach($characters);
         return $squad;
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return mixed
+     */
+    public function sortCharacters(Request $request, int $id)
+    {
+        $sort = $request->input('sort', array());
+        $squad = Squad::find($id);
+        $newSquadOrder = array();
+        foreach($sort as $squadOrder => $characterId) {
+            $newSquadOrder[$characterId] = array('squad_order' => $squadOrder);
+        }
+        $squad->characters()->sync($newSquadOrder);
+        return $squad->characters;
     }
 
 }

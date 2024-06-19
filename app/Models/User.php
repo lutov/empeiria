@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Worlds\World;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @package App\Models
  *
  * @property int $id
+ * @property World[] $worlds
  */
 class User extends Authenticatable
 {
@@ -47,4 +50,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function worlds()
+    {
+        return $this->hasMany(World::class);
+    }
 }
