@@ -46,6 +46,14 @@
         });
     </script>
 
+    <style>
+        #sortable li {
+            list-style: none;
+            display: inline-block;
+            width: 49%;
+        }
+    </style>
+
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Characters</h5>
@@ -59,19 +67,19 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faction_{{ $faction->id }}" aria-expanded="false" aria-controls="faction_{{ $faction->id }}">
-                            <span @if($faction->player_faction) class="text-success" @endif>{{ $faction->name }}</span>
+                            <span @if($faction->player_faction) class="text-success" @endif>{{ $faction->name }} Faction</span>
                         </button>
                     </h2>
                     <div id="faction_{{ $faction->id }}" class="accordion-collapse collapse" data-bs-parent="#factions">
-                        <div class="accordion-body">
+                        <div class="accordion-body p-0">
                             {{ $faction->description }}
 
-                            <div class="accordion" id="accordionExample">
+                            <div class="accordion accordion-flush" id="accordionExample">
                             @foreach($faction->squads as $squad)
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                {{ $squad->name }}
+                                                {{ $squad->name }} Squad
                                             </button>
                                         </h2>
                                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
@@ -81,10 +89,18 @@
                                                     <li id="draggable" class="ui-state-highlight">Drag me down</li>
                                                 </ul-->
 
-                                                <ul id="sortable">
-                                                    @foreach($squad->characters as $character)
+                                                <ul id="sortable" class="p-0">
+                                                    @foreach($squad->characters as $characterKey => $character)
                                                     <li class="ui-state-default" id="squad_{{ $squad->id }}-character_{{ $character->id }}">
-                                                        {{ $character->nickname }}
+
+                                                        <div class="card">
+                                                            <img src="/img/characters/avatars/female/00{{ $characterKey + 1 }}.jpg" class="card-img-top" alt="...">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{{ $character->first_name }} {{ $character->last_name }}</h5>
+                                                                <h6 class="card-subtitle mb-2 text-body-secondary">{{ $character->nickname }}</h6>
+                                                                <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                     @endforeach
                                                 </ul>
