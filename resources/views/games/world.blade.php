@@ -7,6 +7,7 @@
     <script>
         $(function() {
             $( "#sortable" ).sortable({
+                items: '> div',
                 cursor: "move",
                 update: function( event, ui ) {
                     let sortedIDs = $( "#sortable" ).sortable( "toArray" );
@@ -89,11 +90,11 @@
                                                     <li id="draggable" class="ui-state-highlight">Drag me down</li>
                                                 </ul-->
 
-                                                <ul id="sortable" class="p-0">
+                                                <div id="sortable" class="row">
                                                     @foreach($squad->characters as $characterKey => $character)
-                                                    <li class="ui-state-default" id="squad_{{ $squad->id }}-character_{{ $character->id }}">
+                                                    <div id="squad_{{ $squad->id }}-character_{{ $character->id }}" class="ui-state-default col-sm-6 mb-3">
 
-                                                        <div class="card">
+                                                        <div class="card h-100">
                                                             <img src="/img/characters/avatars/female/00{{ $characterKey + 1 }}.jpg" class="card-img-top" alt="...">
                                                             <div class="card-body">
                                                                 <h5 class="card-title">{{ $character->first_name }} {{ $character->last_name }}</h5>
@@ -101,9 +102,10 @@
                                                                 <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
                                                             </div>
                                                         </div>
-                                                    </li>
+
+                                                    </div>
                                                     @endforeach
-                                                </ul>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -121,9 +123,9 @@
 
             </div>
 
-            <div class="mb-3">
+            <!--div class="mb-3">
                 Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-            </div>
+            </div-->
             <a class="btn btn-outline-secondary" href="/games/{{ $gameId }}/worlds/{{ $world->id }}/characters">Create Main Character</a>
 
         </div>
