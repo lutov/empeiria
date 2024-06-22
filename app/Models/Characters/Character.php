@@ -92,6 +92,14 @@ class Character extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function types()
+    {
+        return $this->belongsToMany(Type::class, 'character_type');
+    }
+
+    /**
      * @return BelongsTo
      */
     public function species()
