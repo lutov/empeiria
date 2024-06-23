@@ -13,7 +13,6 @@ use App\Models\Factions\Faction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -23,9 +22,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $id
  * @property int $user_id
  * @property string $name
- * @property int faction_id
- * @property string description
- * @property int banner_id
+ * @property int $faction_id
+ * @property string $description
+ * @property int $banner_id
+ * @property Position $position
  *
  * @method static find(int $id)
  * @method static where(string $string, string $operator, string $id)
@@ -40,6 +40,7 @@ class Squad extends Model
         'banner_id',
         'faction_id',
         'characters',
+        'position',
     ];
     protected $fillable = [
         'id',
@@ -64,6 +65,14 @@ class Squad extends Model
     public function faction()
     {
         return $this->belongsTo(Faction::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function position()
+    {
+        return $this->hasOne(Position::class);
     }
 
     /**
