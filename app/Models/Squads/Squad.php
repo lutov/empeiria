@@ -76,6 +76,14 @@ class Squad extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function parameters()
+    {
+        return $this->belongsToMany(Parameter::class, 'squad_parameter')->withPivot('value');
+    }
+
+    /**
      * @return HasOne
      */
     public function banner()
