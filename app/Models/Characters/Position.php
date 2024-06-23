@@ -9,35 +9,21 @@
 namespace App\Models\Characters;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int x
- * @property int y
+ * @property int $x
+ * @property int $y
  */
 class Position extends Model
 {
-
-    public function entity()
-    {
-        return $this->morphTo();
-    }
-
-    public function map()
-    {
-        return $this->belongsTo('App\Models\Map');
-    }
+    protected $table = 'character_position';
 
     /**
-     * @param  Position  $destination
-     * @return int
+     * @return BelongsTo
      */
-    public function distance(Position $destination)
+    public function character()
     {
-        return (int)round(
-            sqrt(
-                (($destination->x - $this->x) ** 2) + (($destination->y - $this->y) ** 2)
-            )
-        );
+        return $this->belongsTo(Character::class, 'character_id');
     }
-
 }

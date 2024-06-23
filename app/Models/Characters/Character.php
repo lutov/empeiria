@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -56,7 +55,7 @@ class Character extends Model
         //'avatar',
         'qualities',
         //'inventory',
-        //'position',
+        'position',
     ];
     protected $visible = [
         'id',
@@ -68,6 +67,7 @@ class Character extends Model
         'age',
         'bio',
         'qualities',
+        'position',
     ];
     protected $fillable = [
         'id',
@@ -196,19 +196,19 @@ class Character extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function position()
+    {
+        return $this->hasOne(Position::class, 'character_id');
+    }
+
+    /**
      * @return HasMany
      */
     public function relations()
     {
         return $this->hasMany('App\Models\Relation');
-    }
-
-    /**
-     * @return MorphOne
-     */
-    public function position()
-    {
-        return $this->morphOne('App\Models\Position', 'entity');
     }
 
 }
