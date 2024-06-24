@@ -156,6 +156,14 @@ class Character extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function parameters()
+    {
+        return $this->belongsToMany(Parameter::class, 'character_parameter')->withPivot('value');
+    }
+
+    /**
      * @return HasMany
      */
     public function conditions()
