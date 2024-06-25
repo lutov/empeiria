@@ -158,6 +158,14 @@ class Character extends Model
     /**
      * @return BelongsToMany
      */
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'character_skill');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
     public function parameters()
     {
         return $this->belongsToMany(Parameter::class, 'character_parameter')->withPivot('value');
