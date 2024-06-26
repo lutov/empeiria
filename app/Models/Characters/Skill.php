@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * Class Perk
+ * Class Skill
  * @package App\Models\Characters
+ *
+ * @method static create(array $skill)
  */
 class Skill extends Model
 {
