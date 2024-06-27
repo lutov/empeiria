@@ -1,12 +1,11 @@
 <?php
 
-use App\Models\Characters\SkillType;
-use Database\Seeders\CharactersSkillsSeeder;
+use Database\Seeders\CharactersSkillsTypesSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCharactersSkillsTable extends Migration
+class CreateCharactersSkillsTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,16 +14,15 @@ class CreateCharactersSkillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('characters_skills', function (Blueprint $table) {
+        Schema::create('characters_skills_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(SkillType::class, 'skill_type_id')->nullable();
             $table->string('name', 256);
             $table->string('slug', 256)->nullable();
             $table->text('description')->nullable();
             $table->text('alt_description')->nullable();
             $table->text('icon')->nullable();
         });
-        $seeder = new CharactersSkillsSeeder();
+        $seeder = new CharactersSkillsTypesSeeder();
         $seeder->run();
     }
 
@@ -35,6 +33,6 @@ class CreateCharactersSkillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('characters_skills');
+        Schema::dropIfExists('characters_skills_types');
     }
 }

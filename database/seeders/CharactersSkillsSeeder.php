@@ -16,6 +16,7 @@ class CharactersSkillsSeeder extends Seeder
     {
         $skills = array(
             array(
+                'skill_type_id' => 1,
                 'name' => 'Simple Attack',
                 'slug' => 'simple_attack',
                 'description' => "",
@@ -23,6 +24,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 1,
                 'name' => 'Feint Attack',
                 'slug' => 'feint_attack',
                 'description' => "",
@@ -30,6 +32,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 1,
                 'name' => 'Accurate Attack',
                 'slug' => 'accurate_attack',
                 'description' => "",
@@ -37,6 +40,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 1,
                 'name' => 'Powerful Attack',
                 'slug' => 'powerful_attack',
                 'description' => "",
@@ -44,6 +48,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 1,
                 'name' => 'Dodge',
                 'slug' => 'dodge',
                 'description' => "",
@@ -51,6 +56,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 2,
                 'name' => 'Block',
                 'slug' => 'block',
                 'description' => "",
@@ -58,6 +64,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 2,
                 'name' => 'Roll',
                 'slug' => 'roll',
                 'description' => "",
@@ -65,6 +72,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 2,
                 'name' => 'Disengage',
                 'slug' => 'disengage',
                 'description' => "",
@@ -72,6 +80,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 2,
                 'name' => 'Riposte',
                 'slug' => 'riposte',
                 'description' => "",
@@ -79,6 +88,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 3,
                 'name' => 'Heal',
                 'slug' => 'heal',
                 'description' => "",
@@ -86,6 +96,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 3,
                 'name' => 'Bandage',
                 'slug' => 'bandage',
                 'description' => "",
@@ -93,6 +104,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 3,
                 'name' => 'Defend',
                 'slug' => 'defend',
                 'description' => "",
@@ -100,6 +112,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 4,
                 'name' => 'Push',
                 'slug' => 'push',
                 'description' => "",
@@ -107,6 +120,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 4,
                 'name' => 'Throw',
                 'slug' => 'throw',
                 'description' => "",
@@ -114,6 +128,7 @@ class CharactersSkillsSeeder extends Seeder
                 'icon' => '',
             ),
             array(
+                'skill_type_id' => 4,
                 'name' => 'Environment Action',
                 'slug' => 'environment_action',
                 'description' => "",

@@ -10,21 +10,19 @@ namespace App\Models\Characters;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Class Skill
+ * Class SkillType
  * @package App\Models\Characters
  *
- * @method static create(array $skill)
+ * @method static create(array $types)
  */
-class Skill extends Model
+class SkillType extends Model
 {
-    protected $table = 'characters_skills';
+    protected $table = 'characters_skills_types';
     public $timestamps = false;
     protected $visible = array(
         'id',
-        'type',
         'name',
         'slug',
         'description',
@@ -32,7 +30,6 @@ class Skill extends Model
     );
     protected $fillable = array(
         'id',
-        'skill_type_id',
         'name',
         'slug',
         'description',
@@ -41,18 +38,10 @@ class Skill extends Model
     );
 
     /**
-     * @return HasOne
-     */
-    public function type()
-    {
-        return $this->hasOne(SkillType::class);
-    }
-
-    /**
      * @return BelongsToMany
      */
-    public function characters()
+    public function skills()
     {
-        return $this->belongsToMany(Character::class, 'character_skill');
+        return $this->belongsToMany(Skill::class, 'characters_skills', 'skill_type_id');
     }
 }
