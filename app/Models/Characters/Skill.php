@@ -9,8 +9,8 @@
 namespace App\Models\Characters;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Skill
@@ -41,11 +41,11 @@ class Skill extends Model
     );
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
     public function type()
     {
-        return $this->hasOne(SkillType::class);
+        return $this->belongsTo(SkillType::class);
     }
 
     /**

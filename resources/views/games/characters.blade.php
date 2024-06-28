@@ -262,6 +262,67 @@
                                onchange="setAge($(this).val())" autocomplete="off">
                     </div>
 
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text border border-success text-success w-75" id="basic-addon1">
+                                    Available Skills
+                                </span>
+                                <input class="form-control border border-success" id="availableSkills" type="text"
+                                       placeholder="" value="3" autocomplete="off" readonly>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                    <div class="row">
+                        @foreach($skills as $skill)
+                            @switch($skill->skill_type_id)
+                                @case(1)
+                                @php
+                                    $skillClass = 'text-bg-danger';
+                                @endphp
+                                @break
+
+                                @case(2)
+                                @php
+                                    $skillClass = 'text-bg-primary';
+                                @endphp
+                                @break
+
+                                @case(3)
+                                @php
+                                    $skillClass = 'text-bg-success';
+                                @endphp
+                                @break
+
+                                @case(4)
+                                @php
+                                    $skillClass = 'text-bg-secondary';
+                                @endphp
+                                @break
+
+                                @default
+                                @php
+                                    $skillClass = 'text-bg-success';
+                                @endphp
+                            @endswitch
+                            <input class="d-none" type="checkbox" value="{{ $skill->id }}" id="{{ $skill->slug }}" name="skills[]"
+                                   autocomplete="off">
+                            <div class="col-sm-3 mb-3">
+                                <div id="{{ $skill->slug }}-skill-card" class="card h-100 skill-card {{ $skillClass }}"
+                                     onclick="toggleSkill('{{ $skill->slug }}')">
+                                    <div class="card-header">
+                                        {{ $skill->name }}
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title">{!! $skill->icon !!}</p>
+                                        <p class="card-text fw-light fs-6">{{ $skill->description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
                 </div>
                 <div class="col">
 

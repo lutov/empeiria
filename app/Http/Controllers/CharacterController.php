@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Characters\Character;
 use App\Models\Characters\Perk;
 use App\Models\Characters\Quality;
+use App\Models\Characters\Skill;
 use App\Models\Characters\Species;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class CharacterController extends Controller
     {
         $characters = Character::where('world_id', $worldId)->get();
         $species = Species::whereNull('parent_id')->get();
+        $skills = Skill::all();
         $qualities = Quality::all();
         $perks = Perk::all();
         $data = array(
@@ -29,6 +31,7 @@ class CharacterController extends Controller
             'worldId' => $worldId,
             'characters' => $characters,
             'species' => $species,
+            'skills' => $skills,
             'qualities' => $qualities,
             'perks' => $perks,
         );
