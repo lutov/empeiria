@@ -9,4 +9,5 @@
 ## Official Soundtrack
 
 1. [Empeiria OST vol.1](https://github.com/lutov/empeiria_ost_volume_1)
+2. [Empeiria OST vol.2](https://github.com/lutov/empeiria_ost_volume_2)
 
