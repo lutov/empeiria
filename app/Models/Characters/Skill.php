@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @package App\Models\Characters
  *
  * @method static create(array $skill)
+ * @method static where(string $column, string $operator, string $value)
  */
 class Skill extends Model
 {
