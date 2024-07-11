@@ -311,12 +311,8 @@
                             <div class="col-sm-3 mb-3">
                                 <div id="{{ $skill->slug }}-skill-card" class="card h-100 skill-card {{ $skillClass }}"
                                      onclick="toggleSkill('{{ $skill->slug }}')">
-                                    <div class="card-header">
-                                        {{ $skill->name }}
-                                    </div>
-                                    <div class="card-body">
+                                    <div class="card-body text-center">
                                         <p class="card-title">{!! $skill->icon !!}</p>
-                                        <p class="card-text fw-light fs-6">{{ $skill->description }}</p>
                                     </div>
                                 </div>
                             </div>
