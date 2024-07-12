@@ -22,6 +22,7 @@ class CreateCharactersSkillsTable extends Migration
             $table->string('slug', 256)->nullable();
             $table->text('description')->nullable();
             $table->text('alt_description')->nullable();
+            $table->smallInteger('cost')->default(0);
             $table->text('icon')->nullable();
         });
         $seeder = new CharactersSkillsSeeder();

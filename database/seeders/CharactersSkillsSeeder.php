@@ -21,6 +21,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'simple_attack',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 10,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-arrow-right"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -29,6 +30,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'feint_attack',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 20,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-arrow-return-right"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -37,6 +39,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'accurate_attack',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 15,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-crosshair"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -45,6 +48,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'powerful_attack',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 20,
                 'icon' => '<i class="bi-person-raised-hand fs-3"></i><i class="bi-arrow-down-right"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -53,6 +57,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'dodge',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 15,
                 'icon' => '<i class="bi-person-walking fs-3"></i><i class="bi-arrow-counterclockwise"></i><i class="bi-arrow-left"></i>',
             ),
             array(
@@ -61,6 +66,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'block',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 10,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-shield-fill"></i><i class="bi-arrow-left"></i>',
             ),
             array(
@@ -69,6 +75,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'roll',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 20,
                 'icon' => '<i class="bi-arrow-counterclockwise"></i><i class="bi-person-walking fs-3"></i><i class="bi-arrow-counterclockwise"></i>',
             ),
             array(
@@ -77,6 +84,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'disengage',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 15,
                 'icon' => '<i class="bi-arrow-left"></i><i class="bi-person-walking fs-3"></i><i class="bi-arrow-left"></i>',
             ),
             array(
@@ -85,6 +93,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'riposte',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 20,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-arrow-left-right"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -93,6 +102,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'heal',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 20,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-magic"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -101,6 +111,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'bandage',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 10,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-plus-lg"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -109,6 +120,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'defend',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 15,
                 'icon' => '<i class="bi-person-standing-dress"></i><i class="bi-person-standing fs-3"></i><i class="bi-shield-fill"></i>',
             ),
             array(
@@ -117,6 +129,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'push',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 10,
                 'icon' => '<i class="bi-arrow-right"></i><i class="bi-person-walking fs-3"></i><i class="bi-arrow-right"></i>',
             ),
             array(
@@ -125,6 +138,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'throw',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 10,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-heart-arrow"></i><i class="bi-person-standing fs-3"></i>',
             ),
             array(
@@ -133,6 +147,7 @@ class CharactersSkillsSeeder extends Seeder
                 'slug' => 'environment_action',
                 'description' => "",
                 'alt_description' => "",
+                'cost' => 5,
                 'icon' => '<i class="bi-person-standing fs-3"></i><i class="bi-fire"></i><i class="bi-person-standing fs-3"></i>',
             ),
         );

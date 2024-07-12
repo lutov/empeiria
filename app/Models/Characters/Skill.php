@@ -38,6 +38,7 @@ class Skill extends Model
         'slug',
         'description',
         'alt_description',
+        'cost',
         'icon',
     );
 
