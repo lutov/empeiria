@@ -6,38 +6,29 @@
  * Time: 12:59
  */
 
-namespace App\Models;
+namespace App\Models\Conversations;
 
+use App\Models\Characters\Character;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Conversation extends Model
 {
-
-    /**
-     * @return BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
     /**
      * @return HasManyThrough
      */
     public function characters()
     {
-        return $this->hasManyThrough('App\Models\Character', 'App\Models\Message');
+        return $this->hasManyThrough(Character::class, Reply::class);
     }
 
     /**
      * @return HasMany
      */
-    public function messages()
+    public function replies()
     {
-        return $this->hasMany('App\Models\Message');
+        return $this->hasMany(Reply::class);
     }
 
 }

@@ -6,12 +6,13 @@
  * Time: 13:08
  */
 
-namespace App\Models;
+namespace App\Models\Conversations;
 
+use App\Models\Characters\Character;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Message extends Model
+class Reply extends Model
 {
 
     /**
@@ -19,7 +20,7 @@ class Message extends Model
      */
     public function conversation()
     {
-        return $this->belongsTo('App\Models\Conversation');
+        return $this->belongsTo(Conversation::class);
     }
 
     /**
@@ -27,7 +28,7 @@ class Message extends Model
      */
     public function character()
     {
-        return $this->belongsTo('App\Models\Character');
+        return $this->belongsTo(Character::class);
     }
 
 }

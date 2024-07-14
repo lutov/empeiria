@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Message;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +10,7 @@ class MessageAPIController extends APIController
 {
 
     private $slug = 'messages';
-    private $model = Message::class;
+    private $model = Reply::class;
 
     /**
      * HomeController constructor.
@@ -26,16 +26,16 @@ class MessageAPIController extends APIController
     public function index()
     {
         $user = Auth::user();
-        return Message::where('user_id', $user->id)->get();
+        return Reply::where('user_id', $user->id)->get();
     }
 
     /**
      * @param  Request  $request
-     * @return Message
+     * @return Reply
      */
     public function store(Request $request)
     {
-        $message = new Message();
+        $message = new Reply();
         $user = Auth::user();
         $message->user_id = $user->id;
         $message->save();
@@ -48,7 +48,7 @@ class MessageAPIController extends APIController
      */
     public function show(int $id)
     {
-        return Message::find($id);
+        return Reply::find($id);
     }
 
     /**
@@ -57,7 +57,7 @@ class MessageAPIController extends APIController
      */
     public function update(int $id)
     {
-        $message = Message::find($id);
+        $message = Reply::find($id);
         if (isset($message->id)) {
             //
         }
@@ -70,7 +70,7 @@ class MessageAPIController extends APIController
      */
     public function destroy(int $id)
     {
-        $message = Message::find($id);
+        $message = Reply::find($id);
         if (isset($message->id)) {
             $message->delete();
         }
