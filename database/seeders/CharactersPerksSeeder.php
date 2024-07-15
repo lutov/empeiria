@@ -57,6 +57,35 @@ class CharactersPerksSeeder extends Seeder
                 'alt_description' => "Этот персонаж определенно занят каким-то ремеслом. Он одет просто и практично, на поясе блестят несколько рукояток инструментов, а увесистая сумка через плечо характерно озвякивает металлом.",
                 'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
             ),
+            // TODO ниже пока сырые записи, проработать
+            array(
+                'name' => 'Musician',
+                'slug' => 'musician',
+                'description' => "This character is definitely into music. However, how good he is at this remains to be seen.",
+                'alt_description' => "Этот персонаж несомненно занимается музыкой. Впрочем, насколько он хорош в этом, еще предстоит выяснить.",
+                'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
+            ),
+            array(
+                'name' => 'Writer',
+                'slug' => 'writer',
+                'description' => "This character periodically makes notes in a small dark-bound book. Whether he keeps travel notes, or - who knows - writes poetry, time will tell.",
+                'alt_description' => "Этот персонаж периодически делает записи в небольшой книжке в темном переплете. Ведет ли он путевые заметки, или - кто знает - пишет стихи, покажет время.",
+                'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
+            ),
+            array(
+                'name' => 'Bestial',
+                'slug' => 'bestial',
+                'description' => "This character is experiencing side effects from overusing magic. From a distance it is not noticeable, but up close it is noticeable that he is no longer entirely human.",
+                'alt_description' => "Этот персонаж испытывает побочные эффекты от чрезмерного использования магии. Издалека это не бросается в глаза, но вблизи заметно, что он уже не совсем человек.",
+                'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
+            ),
+            array(
+                'name' => 'Crippled',
+                'slug' => 'crippled',
+                'description' => "Although magical healing often allows you to recover even from severe injuries, the world is a dangerous place, so crippled characters are more common than we would like.",
+                'alt_description' => "Хотя магическое лечение чаще всего позволяет восстановиться даже после тяжелых травм, мир - опасное место, поэтому искалеченные персонажи встречаются чаще, чем хотелось бы.",
+                'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
+            ),
         );
         foreach ($qualities as $quality) {
             Perk::create($quality);
