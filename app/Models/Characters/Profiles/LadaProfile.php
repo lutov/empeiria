@@ -12,6 +12,9 @@ class LadaProfile
     public int $userId = 0;
     public int $worldId = 0;
 
+    /**
+     * @return int
+     */
     public function create()
     {
         $userId = $this->userId;
@@ -47,6 +50,8 @@ class LadaProfile
             10, // crippled
         );
         $character->perks()->attach($perks);
+
+        return $character->id;
     }
 
 }
