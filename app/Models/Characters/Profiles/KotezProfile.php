@@ -6,7 +6,7 @@ namespace App\Models\Characters\Profiles;
 
 use App\Models\Characters\Character;
 
-class LadaProfile
+class KotezProfile
 {
 
     public int $userId = 0;
@@ -23,31 +23,30 @@ class LadaProfile
         $character->user_id = $userId;
         $character->world_id = $worldId;
         $character->species_id = 1;
-        $character->first_name = 'Lada';
-        $character->nickname = 'Owl';
-        $character->last_name = 'Sovaroga';
-        $character->sex = 'female';
-        $character->age = 32;
+        $character->first_name = 'Leopold';
+        $character->nickname = 'Feline';
+        $character->last_name = 'Kotez';
+        $character->sex = 'male';
+        $character->age = 153;
         $character->bio = '';
         $character->save();
 
         $qualities = array(
-            1 => 13, // vitality
-            2 => 11, // mobility
-            3 => 13, // appeal
-            4 => 12, // sociality
-            5 => 10, // intellect
-            6 => 11, // willpower
-        ); // 70
+            1 => 12, // vitality
+            2 => 8, // mobility
+            3 => 10, // appeal
+            4 => 11, // sociality
+            5 => 18, // intellect
+            6 => 12, // willpower
+        ); // 71
         foreach ($qualities as $key => $value) {
             $character->qualities()->attach($key, array('value' => $value));
         }
 
         $perks = array(
-            1, // tall
-            3, // traveller
-            7, // musician
-            10, // crippled
+            4, // homebody
+            8, // writer
+            11, // mage
         );
         $character->perks()->attach($perks);
 

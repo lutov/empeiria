@@ -86,6 +86,20 @@ class CharactersPerksSeeder extends Seeder
                 'alt_description' => "Хотя магическое лечение чаще всего позволяет восстановиться даже после тяжелых травм, мир - опасное место, поэтому искалеченные персонажи встречаются чаще, чем хотелось бы.",
                 'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
             ),
+            array(
+                'name' => 'Mage',
+                'slug' => 'mage',
+                'description' => "This character can use magic.",
+                'alt_description' => "Этот персонаж владеет магией.",
+                'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
+            ),
+            array(
+                'name' => 'Witch-doctor',
+                'slug' => 'witch_doctor',
+                'description' => "This character is knowledgeable about medicine without using magic.",
+                'alt_description' => "Этот персонаж разбирается в медицине без применения магии.",
+                'icon' => '<i class="bi-tools"></i><i class="bi-person-standing fs-3"></i><i class="bi-nut-fill"></i>',
+            ),
         );
         foreach ($qualities as $quality) {
             Perk::create($quality);
