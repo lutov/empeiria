@@ -24,6 +24,12 @@
     <body class="min-vh-100 pt-5 pb-5">
         <header class="w-50 text-center m-auto mb-3">
             <a href="/games" class="logo rowdies-regular">Empeiria</a>
+
+            <div>
+                <audio controls="controls">
+                    <source src="/audio/ost/01.mp3"/>
+                </audio>
+            </div>
         </header>
 
         @section('sidebar')
